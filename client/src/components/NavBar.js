@@ -8,7 +8,7 @@ function NavBar() {
         <div className="flex w-full bg-white p-3 pl-5 pr-5">
             <div className="flex w-full justify-between items-center">
 
-                <a href="/"><h1 className="flex justify-start font-bold">PHOTOMANIA</h1></a>
+                <Link to="/"><h1 className="flex justify-start font-bold hover:text-purple-900 ease-in duration-100">PHOTOMANIA</h1></Link>
                 <form onSubmit={onSubmit} action="">
                     <input id="search" onChange={onChange} type="text" className="w-full border-solid border-2 ease-in focus:border-purple-900 hover:border-purple-900 border-black rounded-lg p-1 pl-3 pr-3 duration-100" placeholder="Search"/>
                 </form>
