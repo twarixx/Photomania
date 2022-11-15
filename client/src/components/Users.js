@@ -17,6 +17,12 @@ const users = [
         verified: false,
         profile_picture: null,
         posts: [],
+    },
+    {
+        username: 'Shaquille',
+        verified: true,
+        profile_picture: '/images/profile_pictures/shaquille.jpg',
+        posts: [],
     }
 ]
 
