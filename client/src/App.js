@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import UserPage from "./pages/UserPage";
 import PostPage from "./pages/PostPage";
@@ -11,7 +11,7 @@ function App() {
     return (
         <BrowserRouter>
             <div className="App">
-                <h1>Welcome to my website!</h1>
+                <h1 className="font-bold text-red-500 text-4xl ">Welcome to my website!</h1>
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<HomePage/>}/>
