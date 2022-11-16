@@ -12,7 +12,6 @@ function App() {
         <div>
             <BrowserRouter>
                 <Header/>
-                <p className="derp">Hey</p>
                 <h1 className="font-bold text-red-500 text-4xl">Welcome to my website!</h1>
                 <Routes>
                     <Route path="/" element={<HomePage/>}/>

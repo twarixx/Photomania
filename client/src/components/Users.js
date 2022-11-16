@@ -23,6 +23,12 @@ const users = [
         verified: true,
         profile_picture: '/images/profile_pictures/shaquille.jpg',
         posts: [],
+    },
+    {
+        username: 'Esmay',
+        verified: true,
+        profile_picture: '/images/profile_pictures/esmay.jpg',
+        posts: [],
     }
 ]
 
