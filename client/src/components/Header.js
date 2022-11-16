@@ -12,6 +12,7 @@ function Header() {
 
         const searchBar = document.getElementById('searchbar');
         searchBar.value = '';
+        searchBar.blur();
 
         navigate(`/${searchValue}`);
     };
