@@ -5,13 +5,14 @@ import UserPage from "./pages/UserPage";
 import PostPage from "./pages/PostPage";
 import UploadPage from "./pages/UploadPage";
 import UnknownPage from "./pages/UnknownPage";
-import NavBar from "./components/NavBar";
+import Header from "./components/Header";
 
 function App() {
     return (
         <div>
             <BrowserRouter>
-                <NavBar/>
+                <Header/>
+                <p className="derp">Hey</p>
                 <h1 className="font-bold text-red-500 text-4xl">Welcome to my website!</h1>
                 <Routes>
                     <Route path="/" element={<HomePage/>}/>
