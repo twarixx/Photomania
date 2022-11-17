@@ -34,7 +34,7 @@ function Header() {
     return (
         <>
             <nav
-                className="bg-black text-white bg-opacity-30 h-14 sm:h-20 w-full flex items-center px-5 justify-between shadow-sm fixed">
+                className="absolute bg-black text-white bg-opacity-30 h-14 sm:h-20 w-full flex items-center px-5 justify-between shadow-sm">
                 <div>
                     <Link to="/"><h1 className="hidden sm:block font-semibold text-lg tracking-widest">PHOTOMANIA</h1>
                     </Link>
@@ -48,20 +48,16 @@ function Header() {
 
                 <div className="flex items-center">
                     <img onClick={openModal}
-                         className="block sm:hidden w-8 sm:w-10 mr-3 sm:mr-5 h-full fill-white text-white"
+                         className="block sm:hidden w-8 sm:w-9 mr-3 sm:mr-5 h-full fill-white text-white"
                          src="/icons/search-white.svg" alt="Search" title="Search"/>
-                    <img className="w-8 sm:w-10 mr-3 sm:mr-5 h-full fill-white text-white"
+                    <img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full fill-white text-white"
                          src="/icons/notifications.svg" alt="Search" title="Search"/>
-                    <Link to="/upload"><img className="w-8 sm:w-10 mr-3 sm:mr-5 h-full" src="/icons/upload.svg"
+                    <Link to="/upload"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/upload.svg"
                                             alt="Upload" title="Upload"/></Link>
 
                     {userDropdown()}
                 </div>
             </nav>
-
-            <div className="w-full h-full object-fit  w-full">
-                <img className="h-3/5 w-full" src="/images/header-three.jpg" alt="Header"/>
-            </div>
 
             {showModels({isOpen, closeModal, handleSubmit})}
         </>
@@ -71,7 +67,7 @@ function Header() {
 function showModels({isOpen, closeModal, handleSubmit}) {
     return (
         <Transition appear show={isOpen}>
-            <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Dialog as="div" className="relative z-50" onClose={closeModal}>
                 <Transition.Child
                     enter="ease-out duration-300"
                     enterFrom="opacity-0"
@@ -125,7 +121,7 @@ function userDropdown() {
     return (
         <Menu>
             <Menu.Button><img
-                className="w-10 sm:w-12 aspect-square object-cover rounded-full border-2 border-solid border-white"
+                className="w-9 sm:w-11 aspect-square object-cover rounded-full border-2 border-solid border-white"
                 title="Esmay" src="/images/profile_pictures/esmay.jpg" alt="Profile Pic"/></Menu.Button>
             <Transition
                 enter="transition duration-100 ease-out"
