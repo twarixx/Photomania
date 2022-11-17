@@ -8,7 +8,7 @@ body {
 
 @layer components {
     .header {
-        @apply text-purple-500 font-semibold text-center text-xl mb-3 pb-3 m-auto;
+        @apply text-black font-semibold text-center text-xl mb-3 pb-3 m-auto;
     }
 
     .header::after {

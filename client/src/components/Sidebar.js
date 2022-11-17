@@ -9,7 +9,7 @@ function Sidebar() {
                         <img className="w-14 aspect-square object-cover h-full rounded-lg"
                              src="/images/profile_pictures/esmay.jpg" alt="Profile Pic"/>
                         <div className="justify-center ml-3">
-                            <h1 className="text-md font-semibold text-purple-500">Esmay</h1>
+                            <h1 className="text-md font-semibold">Esmay</h1>
                             <p className="text-gray-400 text-sm">@esmaybe</p>
                         </div>
                     </div>
