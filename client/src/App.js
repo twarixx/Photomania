@@ -7,6 +7,7 @@ import UploadPage from "./pages/UploadPage";
 import UnknownPage from "./pages/UnknownPage";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import LogoutPage from "./pages/LogoutPage";
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                             <Route path="/:username" element={<UserPage/>}/>
                             <Route path="/post/:postid" element={<PostPage/>}/>
                             <Route path="/upload" element={<UploadPage/>}/>
+                            <Route path="/logout" element={<LogoutPage/>}/>
                             <Route path="*" element={<UnknownPage/>}/>
                         </Routes>
                     </div>

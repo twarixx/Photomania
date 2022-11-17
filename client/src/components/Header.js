@@ -27,7 +27,7 @@ function Header() {
                 bar.blur();
                 closeModal();
 
-                const user = users.find(user => user.username.toLowerCase() === searchValue.toLowerCase());
+                const user = users.find(user => user.username.toLowerCase()  === searchValue.toLowerCase());
                 if (!user) {
                     bar.setAttribute('placeholder', 'This user could not be found!');
                     bar.style.borderColor = 'red';
