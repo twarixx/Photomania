@@ -5,7 +5,7 @@ function PostPage() {
 
     return (
         <div>
-            <h1>Post: {postid}</h1>
+            <h1 className="header">Post: {postid}</h1>
         </div>
     );
 }

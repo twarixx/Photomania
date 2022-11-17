@@ -1,6 +1,6 @@
 function UploadPage() {
     return (
-        <h1>Upload</h1>
+        <h1 className="header">Upload</h1>
     )
 }
 

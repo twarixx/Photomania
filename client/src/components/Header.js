@@ -162,8 +162,8 @@ function notifications() {
                                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                     <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-1">
                                         <p className="text-black font-semibold block text-purple-500">Notifications</p>
-                                        <Notification title="Shaquille" message="started following you!" />
-                                        <Notification title="Admin" message="sent you a message!" />
+                                        <Notification title="Shaquille" message="started following you!" userLink="/shaquille"  />
+                                        <Notification title="Admin" message="sent you a message!" userLink="/admin" />
                                     </div>
 
                                 </div>
