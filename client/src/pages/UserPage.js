@@ -11,11 +11,17 @@ function UserPage() {
     return (
         <>
             <h1>User Page</h1>
-            <p>Username: {foundUser.username}</p>
-            <a target="_blank" rel="noreferrer"
-               href={foundUser.profile_picture || '/images/profile_pictures/_default_.jpg'}><img
-                className="aspect-square object-cover rounded-full w-1/12"
-                src={foundUser.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/></a>
+            <div className="flex items-center">
+                <p>Username: {foundUser.username}</p>
+                {foundUser.verified && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg" alt="Verified"/>}
+            </div>
+
+            <div className="w-1/12" >
+                <a target="_blank" rel="noreferrer"
+                   href={foundUser.profile_picture || '/images/profile_pictures/_default_.jpg'}><img
+                    className="aspect-square object-cover rounded-full"
+                    src={foundUser.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/></a>
+            </div>
         </>
     )
 }
