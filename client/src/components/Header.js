@@ -1,6 +1,6 @@
 import '../App.css';
 import {Link, useNavigate} from "react-router-dom";
-import {Menu} from "@headlessui/react";
+import {Menu, Transition} from "@headlessui/react";
 
 let searchValue = '';
 
@@ -36,7 +36,9 @@ function Header() {
                     </form>
                 </div>
 
-                <div className="flex">
+                <div className="flex items-center">
+                    <Link to="/upload"><img className="w-10 mr-5 h-full" src="/icons/upload.svg" alt="Upload" title="Upload"/></Link>
+
                     {userDropdown()}
                 </div>
             </nav>
@@ -52,22 +54,31 @@ function userDropdown() {
     return (
         <Menu>
             <Menu.Button><img
-                className="w-12 aspect-square object-cover rounded-full border-2 border-solid border-gray-400"
+                className="w-12 aspect-square object-cover rounded-full border-2 border-solid border-white"
                 title="Esmay" src="/images/profile_pictures/esmay.jpg" alt="Profile Pic"/></Menu.Button>
-            <Menu.Items
-                className="absolute right-0 mt-12 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="px-1 py-1 ">
-                    <Menu.Item>
-                        <Link to="/esmay"><p className="px-4 py-2 border-b">Profile</p></Link>
-                    </Menu.Item>
-                    <Menu.Item>
-                        <Link to="/settings"><p className="px-4 py-2 border-b">Account settings</p></Link>
-                    </Menu.Item>
-                    <Menu.Item>
-                        <Link to="/logout"><p className="px-4 py-2">Log out</p></Link>
-                    </Menu.Item>
-                </div>
-            </Menu.Items>
+            <Transition
+                enter="transition duration-100 ease-out"
+                enterFrom="transform scale-95 opacity-0"
+                enterTo="transform scale-100 opacity-100"
+                leave="transition duration-75 ease-out"
+                leaveFrom="transform scale-100 opacity-100"
+                leaveTo="transform scale-95 opacity-0"
+            >
+                <Menu.Items
+                    className="absolute right-0 mt-12 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="px-1 py-1 ">
+                        <Menu.Item>
+                            <Link to="/esmay"><p className="px-4 py-2 border-b">Profile</p></Link>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <Link to="/settings"><p className="px-4 py-2 border-b">Account settings</p></Link>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <Link to="/logout"><p className="px-4 py-2">Log out</p></Link>
+                        </Menu.Item>
+                    </div>
+                </Menu.Items>
+            </Transition>
         </Menu>
     )
 }
