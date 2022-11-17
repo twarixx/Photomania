@@ -27,12 +27,12 @@ function Header() {
                 bar.blur();
                 closeModal();
 
-                const user = users.find(user => user.username.toLowerCase()  === searchValue.toLowerCase());
+                const user = users.find(user => user.username.toLowerCase()  === searchValue.toLowerCase() || user.display_name.toLowerCase() === searchValue.toLowerCase());
                 if (!user) {
                     bar.setAttribute('placeholder', 'This user could not be found!');
                     bar.style.borderColor = 'red';
                 } else {
-                    navigate(`/${searchValue}`)
+                    navigate(`/${user.username}`)
                 }
             } else {
                 bar.setAttribute('placeholder', 'What do you want to search');
@@ -153,7 +153,7 @@ function userDropdown() {
                     className="absolute right-0 z-[300] w-56 rounded-md bg-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="z-[100] px-1 py-1 ">
                         <Menu.Item>
-                            <Link to="/esmay"><p className="px-4 py-2 border-b hover:bg-gray-700">Profile</p></Link>
+                            <Link to="/esmaybe"><p className="px-4 py-2 border-b hover:bg-gray-700">Profile</p></Link>
                         </Menu.Item>
                         <Menu.Item>
                             <Link to="/settings"><p className="px-4 py-2 border-b hover:bg-gray-700">Account

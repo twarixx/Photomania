@@ -16,7 +16,7 @@ function App() {
                 <div className="relative">
                     <Header/>
 
-                    <div className="w-full h-full object-fit w-ful z-0">
+                    <div className="w-full h-3/5 object-fit w-ful z-0">
                         <img className="h-3/5 w-full z-0" src="/images/header-three.jpg" alt="Header"/>
                     </div>
                 </div>
