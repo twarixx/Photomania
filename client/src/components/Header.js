@@ -120,8 +120,10 @@ function showSearch({handleSubmit}) {
 function userDropdown() {
     return (
         <Menu>
+            <div className="flex flex-col z-30">
+
             <Menu.Button><img
-                className="w-9 sm:w-11 aspect-square object-cover rounded-full border-2 border-solid border-white"
+                className="w-9 sm:w-11 aspect-square object-cover rounded-full border-2 border-solid border-white relative"
                 title="Esmay" src="/images/profile_pictures/esmay.jpg" alt="Profile Pic"/></Menu.Button>
             <Transition
                 enter="transition duration-100 ease-out"
@@ -132,8 +134,8 @@ function userDropdown() {
                 leaveTo="transform scale-95 opacity-0"
             >
                 <Menu.Items
-                    className="absolute right-0 mt-12 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="px-1 py-1 ">
+                    className="absolute right-0 z-[300] w-56 rounded-md bg-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="z-[100] px-1 py-1 ">
                         <Menu.Item>
                             <Link to="/esmay"><p className="px-4 py-2 border-b hover:bg-gray-700">Profile</p></Link>
                         </Menu.Item>
@@ -147,6 +149,7 @@ function userDropdown() {
                     </div>
                 </Menu.Items>
             </Transition>
+            </div>
         </Menu>
     )
 }
