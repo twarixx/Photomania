@@ -17,7 +17,7 @@ function Sidebar() {
                 </Link>
             </div>
             <div
-                className="hidden sm:block w-auto rounded-none sm:rounded-md px-4 py-5 ml-30 w-2/6 bg-white text-black z-20">
+                className="hidden sm:block w-auto rounded-none sm:rounded-md ml-30 w-2/6 bg-white text-black z-20">
                 <h1 className="header">Suggested Accounts</h1>
                 {/* Get 5 random users without the name Esmaybe*/}
                 {users.filter(user => user.username !== "Esmaybe").sort(() => Math.random() - 0.5).slice(0, 5).map(user => {
