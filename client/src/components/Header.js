@@ -51,7 +51,7 @@ function Header() {
     return (
         <>
             <nav
-                className="absolute bg-black text-white bg-opacity-30 h-14 sm:h-20 w-full flex items-center px-5 justify-between shadow-sm">
+                className="absolute bg-black text-white bg-opacity-30 h-14 sm:h-20 w-full flex items-center px-1.5 sm:px-5 justify-between shadow-sm">
                 <div className="flex space-x-2 items-center">
                     <Link to="/"><h1 className="hidden sm:block font-semibold text-lg tracking-widest">PHOTOMANIA</h1>
                     </Link>
@@ -128,7 +128,7 @@ function showSearch({handleSubmit, handleChange}) {
                 <img src="/icons/search.svg" alt="Search"/>
             </div>
             <form onSubmit={handleSubmit}>
-                <input onChange={handleChange}
+                <input id="mobilesearch" onChange={handleChange}
                        className="searchbar text-[#8f8f8f] placeholder-[#8f8f8f] rounded-md h-10 px-2 pl-9 w-full bg-[#cccccc] outline-none border-solid border-2 border-[#8f8f8f]"
                        type="text" placeholder="Search"/>
             </form>
