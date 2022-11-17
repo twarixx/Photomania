@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {Menu, Transition, Dialog, Popover} from "@headlessui/react";
 import {useState} from "react";
 import users from "./Users";
+import Notification from "./Notification";
 
 let searchValue = '';
 
@@ -71,7 +72,7 @@ function Header() {
                                       alt="Home" title="Home"/></Link>
                     <Link to="/upload"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/upload.svg"
                                             alt="Upload" title="Upload"/></Link>
-                    
+
                     {notifications()}
                     {userDropdown()}
                 </div>
@@ -154,11 +155,14 @@ function notifications() {
                             leaveTo="opacity-0 translate-y-1"
                         >
                             <Popover.Panel
-                                className="absolute left-1/2 z-30 mt-3 w-screen max-w-md -translate-x-3/4 transform px-4 sm:px-0">
+                                className="absolute left-1/2 z-30 mt-3 w-screen max-w-md -translate-x-[85%] transform px-4 sm:px-0">
                                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                                    <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
-                                        <p className="text-black font-semibold">Notifications</p>
+                                    <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-1">
+                                        <p className="text-black font-semibold block">Notifications</p>
+                                        <Notification title="Shaquille" message="started following you!" />
+                                        <Notification title="Admin" message="sent you a message!" />
                                     </div>
+
                                 </div>
                             </Popover.Panel>
                         </Transition>
