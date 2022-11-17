@@ -6,6 +6,19 @@ body {
     background: #eaeaea;
 }
 
-.icon-white {
-    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+@layer components {
+    .header {
+        @apply text-purple-500 font-semibold text-center text-xl mb-3 pb-3 m-auto;
+    }
+
+    .header::after {
+        content: '';
+        display: block;
+        width: 55px;
+        height: 3px;
+        background: rgb(168 85 247);
+        left: 0;
+        right: 0;
+        margin: 10px auto 0px auto;
+    }
 }

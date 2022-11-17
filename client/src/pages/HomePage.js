@@ -1,7 +1,7 @@
 function HomePage() {
     return (
         <div>
-            <h1 className="text-center">Home Page</h1>
+            <h1 className="header">Home Page</h1>
 
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur cumque deleniti dicta distinctio

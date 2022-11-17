@@ -146,7 +146,7 @@ function notifications() {
                             <div className="relative">
                                 <img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/notifications.svg"
                                      alt="Notifications" title="Notifications"/>
-                                <div className="absolute flex bottom-6 right-4 items-center justify-center bg-red-500 rounded-full text-white w-4 h-4 text-xs">2</div>
+                                <div className="absolute flex bottom-6 right-4 items-center justify-center bg-purple-500 rounded-full text-white w-4 h-4 text-xs">2</div>
                             </div>
                         </Popover.Button>
                         <Transition
@@ -161,7 +161,7 @@ function notifications() {
                                 className="absolute left-1/2 z-30 mt-3 w-screen max-w-md -translate-x-[85%] transform px-4 sm:px-0">
                                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                     <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-1">
-                                        <p className="text-black font-semibold block">Notifications</p>
+                                        <p className="text-black font-semibold block text-purple-500">Notifications</p>
                                         <Notification title="Shaquille" message="started following you!" />
                                         <Notification title="Admin" message="sent you a message!" />
                                     </div>
