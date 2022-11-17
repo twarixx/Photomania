@@ -13,7 +13,7 @@ function UserPage() {
             <h1 className="header">User Page</h1>
             <div className="flex items-center">
                 <p>Username: {foundUser.username}</p>
-                {foundUser.verified && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg" title={foundUser.username + ' is verified!'} alt="Verified"/>}
+                {foundUser.verified && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg" title={foundUser.username + ' is verified'} alt="Verified"/>}
             </div>
 
             <div className="w-1/12" >
