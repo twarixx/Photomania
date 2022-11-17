@@ -2,6 +2,7 @@ import '../App.css';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {Menu, Transition, Dialog} from "@headlessui/react";
 import {useState} from "react";
+import users from "./Users";
 
 let searchValue = '';
 
@@ -26,9 +27,24 @@ function Header() {
                 bar.blur();
                 closeModal();
 
-                navigate(`/${searchValue}`)
+                const user = users.find(user => user.username.toLowerCase() === searchValue.toLowerCase());
+                if (!user) {
+                    bar.setAttribute('placeholder', 'This user could not be found!');
+                    bar.style.borderColor = 'red';
+                } else {
+                    navigate(`/${searchValue}`)
+                }
+            } else {
+                bar.setAttribute('placeholder', 'What do you want to search');
+                bar.style.borderColor = 'red';
             }
         });
+    };
+
+    const handleChange = event => {
+        searchValue = event.target.value;
+        event.target.setAttribute('placeholder', 'Search');
+        event.target.style.borderColor = null;
     };
 
     return (
@@ -42,7 +58,7 @@ function Header() {
                 </div>
 
                 <div className="hidden sm:block flex-grow max-w-xl">
-                    {showSearch({handleSubmit})}
+                    {showSearch({handleSubmit, handleChange})}
                 </div>
 
 
@@ -59,12 +75,12 @@ function Header() {
                 </div>
             </nav>
 
-            {showModels({isOpen, closeModal, handleSubmit})}
+            {showModels({isOpen, closeModal, handleSubmit, handleChange})}
         </>
     )
 }
 
-function showModels({isOpen, closeModal, handleSubmit}) {
+function showModels({isOpen, closeModal, handleSubmit, handleChange}) {
     return (
         <Transition appear show={isOpen}>
             <Dialog as="div" className="relative z-50" onClose={closeModal}>
@@ -92,7 +108,7 @@ function showModels({isOpen, closeModal, handleSubmit}) {
                             <Dialog.Panel
                                 className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 
-                                {showSearch({handleSubmit})}
+                                {showSearch({handleSubmit, handleChange})}
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
@@ -102,14 +118,14 @@ function showModels({isOpen, closeModal, handleSubmit}) {
     )
 }
 
-function showSearch({handleSubmit}) {
+function showSearch({handleSubmit, handleChange}) {
     return (
         <div className="mt-2 flex-grow relative">
             <div className="absolute flex items-center w-5 ml-2 h-full">
                 <img src="/icons/search.svg" alt="Search"/>
             </div>
             <form onSubmit={handleSubmit}>
-                <input onChange={e => searchValue = e.target.value}
+                <input onChange={handleChange}
                        className="searchbar text-[#8f8f8f] placeholder-[#8f8f8f] rounded-md h-10 px-2 pl-9 w-full bg-[#cccccc] outline-none border-solid border-2 border-[#8f8f8f]"
                        type="text" placeholder="Search"/>
             </form>

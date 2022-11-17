@@ -24,7 +24,7 @@ function App() {
                     <Sidebar />
 
                     <div className="rounded-none relative sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white h-full text-black z-20">
-                        <Routes>3
+                        <Routes>
                             <Route path="/" element={<HomePage/>}/>
                             <Route path="/:username" element={<UserPage/>}/>
                             <Route path="/post/:postid" element={<PostPage/>}/>
@@ -32,6 +32,7 @@ function App() {
                             <Route path="*" element={<UnknownPage/>}/>
                         </Routes>
                     </div>
+
                 </div>
             </BrowserRouter>
         </div>
