@@ -143,8 +143,11 @@ function notifications() {
                 {({open}) => (
                     <>
                         <Popover.Button>
-                            <img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/notifications.svg"
-                                 alt="Notifications" title="Notifications"/>
+                            <div className="relative">
+                                <img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/notifications.svg"
+                                     alt="Notifications" title="Notifications"/>
+                                <div className="absolute flex bottom-6 right-4 items-center justify-center bg-red-500 rounded-full text-white w-4 h-4 text-xs">2</div>
+                            </div>
                         </Popover.Button>
                         <Transition
                             enter="transition ease-out duration-200"
