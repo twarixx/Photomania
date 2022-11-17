@@ -69,11 +69,10 @@ function Header() {
                 <div className="flex items-center">
                     <Link to="/"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/home.svg"
                                       alt="Home" title="Home"/></Link>
-                    {notifications()}
-
                     <Link to="/upload"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/upload.svg"
                                             alt="Upload" title="Upload"/></Link>
-
+                    
+                    {notifications()}
                     {userDropdown()}
                 </div>
             </nav>
