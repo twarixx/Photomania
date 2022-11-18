@@ -13,7 +13,7 @@ function UserPage() {
             <div
                 className="rounded-none relative sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white h-auto text-black z-20">
                 <div className="flex">
-                    <a target="_blank" href={foundUser.profile_picture || '/images/profile_pictures/_default_.jpg'}><img className="w-36 aspect-square object-cover h-full rounded-md"
+                    <a rel="noreferrer" target="_blank" href={foundUser.profile_picture || '/images/profile_pictures/_default_.jpg'}><img className="w-36 aspect-square object-cover h-full rounded-md"
                                                             src={foundUser.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/></a>
                     <div className="flex flex-col ml-3">
                         <div className="flex">
