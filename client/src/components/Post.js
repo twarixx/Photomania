@@ -35,7 +35,7 @@ const Post = ({post, user, clear = false}) => {
 
                 <Link to={`/post/${post.id}`}>
                     {clear ? <div className="flex justify-center">
-                            <LazyLoadImage className="object-contain" src={post.source} alt={post.caption}/></div> :
+                            <LazyLoadImage className="aspect-square object-cover" src={post.source} alt={post.caption}/></div> :
                         <div className="flex mt-6 justify-center"><LazyLoadImage
                             className="object-contain w-5/6 mx-[20px]" src={post.source} alt={post.caption}/></div>}
 
