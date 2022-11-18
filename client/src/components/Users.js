@@ -4,27 +4,28 @@ const users = [
         display_name: 'Idk',
         verified: false,
         profile_picture: '/images/profile_pictures/Idk.jpg',
+        posts: [],
     },
     {
         username: 'admin',
         display_name: 'Admin',
         verified: true,
         profile_picture: '/images/profile_pictures/admin.jpg',
-        posts: [
-            {
-                id: 'FOOODD',
-                caption: 'Idk i like',
-                source: 'https://images.unsplash.com/photo-1667892465351-4c999c5a8c4c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8',
-                timestamp: 1668769588,
-            }
-        ],
+        posts: [],
     },
     {
         username: 'noob',
         display_name: 'Noob',
         verified: false,
         profile_picture: null,
-        posts: [],
+        posts: [
+            {
+                id: 'FOOODD',
+                caption: 'Idk i like',
+                source: 'https://images.unsplash.com/photo-1667892465351-4c999c5a8c4c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8',
+                timestamp: 1668769588,
+            },
+        ],
     },
     {
         username: 'Shaquille',

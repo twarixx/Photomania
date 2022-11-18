@@ -13,27 +13,36 @@ const Post = ({post, user}) => {
                 <Link to={`/${user.username}`}>
                     <div className="flex items-center px-4 pb-4 border-b-[#efefef] border-b-2">
                         <img className="w-12 aspect-square object-cover h-full rounded-lg"
-                             src={user.profile_picture} loading="lazy" alt="Profile Pic"/>
+                             src={user.profile_picture || '/images/profile_pictures/_default_.jpg'} loading="lazy"
+                             alt="Profile Pic"/>
                         <div className="justify-center ml-3">
-                            <h1 className="text-md font-semibold">{user.display_name}</h1>
+                            <div className="flex items-center">
+                                <p>{user.display_name}</p>
+                                {user.verified && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg"
+                                                       title={user.display_name + ' is verified'} alt="Verified"/>}
+                            </div>
                             <p className="text-gray-400 text-sm">{post.caption}</p>
                         </div>
                     </div>
                 </Link>
 
-                <div className="flex mt-6 justify-center">
-                    <img className="w-4/6 object-cover" loading="lazy" src={post.source} alt={post.caption}/>
-                </div>
+                <Link to={`/post/${post.id}`}>
+                    <div className="flex mt-6 justify-center">
+                        <img className="w-4/6 object-cover" loading="lazy" src={post.source} alt={post.caption}/>
+                    </div>
+                </Link>
 
                 <div className="flex border-t-[#efefef] border-t-2 p-4 mt-6 pb-0 mb-0"></div>
                 <div className="px-4 flex justify-between">
                     <div className="flex space-x-3">
                         <img onClick={handleLike} className="h-10 w-10" src="/icons/like.svg" alt="Like"/>
-                        <Link to={`/post/${post.id}/comments`}><img className="h-10 w-10" src="/icons/comment.svg" alt="Comment"/></Link>
+                        <Link to={`/post/${post.id}/comments`}><img className="h-10 w-10" src="/icons/comment.svg"
+                                                                    alt="Comment"/></Link>
                     </div>
 
                     <div className="flex">
-                        <Link to={`/post/${post.id}`}><img className="h-10 w-10" src="/icons/popout.svg" alt="View post"/></Link>
+                        <Link to={`/post/${post.id}`}><img className="h-10 w-10" src="/icons/popout.svg"
+                                                           alt="View post"/></Link>
                     </div>
                 </div>
             </div>
