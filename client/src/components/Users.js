@@ -10,7 +10,14 @@ const users = [
         display_name: 'Admin',
         verified: true,
         profile_picture: '/images/profile_pictures/admin.jpg',
-        posts: [],
+        posts: [
+            {
+                id: 'FOOODD',
+                caption: 'Idk i like',
+                source: 'https://images.unsplash.com/photo-1667892465351-4c999c5a8c4c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8',
+                timestamp: 1668769588,
+            }
+        ],
     },
     {
         username: 'noob',
@@ -29,6 +36,7 @@ const users = [
                 id: 'ELIE',
                 caption: 'This is elmo!',
                 source: 'https://images.unsplash.com/photo-1581195234513-4dccee3e1898?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2787&q=80',
+                timestamp: 1652864788,
             }
         ],
     },
@@ -42,6 +50,7 @@ const users = [
                 id: 'IHATETHIS',
                 caption: 'Hello World',
                 source: 'https://images.unsplash.com/photo-1667387322417-c434fa1f563d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
+                timestamp: 1613642788,
             }
         ],
     }

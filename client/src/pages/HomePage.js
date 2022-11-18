@@ -13,8 +13,8 @@ function HomePage() {
             </div>
 
             {users.filter(user => user.posts && !user.posts.isEmpty).map(user => {
-                return user.posts.map(post => {
-                    return (
+                return user.posts.filter(post => post.timestamp).map(post => {
+                    return (    
                         <>
                             <div
                                 className="rounded-none sm:rounded-md mx-[3px] px-4 py-5 h-auto bg-white text-black z-20">

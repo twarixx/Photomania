@@ -1,6 +1,11 @@
 import '../App.css'
 import {Link} from "react-router-dom";
 
+const handleLike = (event) => {
+    event.preventDefault();
+    event.target.src = "/icons/like-active.svg";
+}
+
 const Post = ({post, user}) => {
     return (
         <>
@@ -23,12 +28,12 @@ const Post = ({post, user}) => {
                 <div className="flex border-t-[#efefef] border-t-2 p-4 mt-6 pb-0 mb-0"></div>
                 <div className="px-4 flex justify-between">
                     <div className="flex space-x-3">
-                        <Link><img className="h-10 w-10" src="/icons/like.svg" alt="Like"/></Link>
-                        <Link><img className="h-10 w-10" src="/icons/comment.svg" alt="Comment"/></Link>
+                        <img onClick={handleLike} className="h-10 w-10" src="/icons/like.svg" alt="Like"/>
+                        <Link to={`/post/${post.id}/comments`}><img className="h-10 w-10" src="/icons/comment.svg" alt="Comment"/></Link>
                     </div>
 
                     <div className="flex">
-                        <Link><img className="h-10 w-10" src="/icons/popout.svg" alt="View post"/></Link>
+                        <Link to={`/post/${post.id}`}><img className="h-10 w-10" src="/icons/popout.svg" alt="View post"/></Link>
                     </div>
                 </div>
             </div>
