@@ -41,7 +41,7 @@ function UserPage() {
                 </div>
             </div>
 
-            <div className="grid-cols-1 lg:grid-cols-2 grid gap-3 h-full">
+            <div className={(foundUser.posts.length > 1 ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1") + " grid gap-3 h-full"}>
                 {foundUser.posts.sort((a, b) => b.timestamp - a.timestamp).map(post => {
                     return (
                         <div className="flex justify-center items-center rounded-none sm:rounded-md px-4 py-5 m-auto w-full h-full bg-white text-black z-20">
