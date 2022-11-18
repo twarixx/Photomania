@@ -1,12 +1,14 @@
 import '../App.css'
 import {Link} from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 
 const handleLike = (event) => {
     event.preventDefault();
     event.target.src = "/icons/like-active.svg";
 }
-const Post = ({post, user, loadLazy}) => {
+const Post = ({post, user}) => {
     return (
         <>
             <div className="flex flex-col">
@@ -33,7 +35,7 @@ const Post = ({post, user, loadLazy}) => {
 
                 <Link to={`/post/${post.id}`}>
                     <div className="flex mt-6 justify-center">
-                        <img className="object-contain w-5/6 mx-[20px]" loading={loadLazy ? 'lazy' : 'eager'} src={post.source} alt={post.caption}/>
+                        <LazyLoadImage className="object-contain w-5/6 mx-[20px]" src={post.source} alt={post.caption}/>
                     </div>
                 </Link>
 
