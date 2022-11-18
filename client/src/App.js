@@ -16,10 +16,6 @@ function App() {
             <BrowserRouter>
                 <div className="relative">
                     <Header/>
-
-                    <div className="w-full h-3/5 object-fit w-ful z-0">
-                        <img className="h-3/5 w-full z-0" src="/images/header-three.jpg" alt="Header"/>
-                    </div>
                 </div>
 
                 <div className="sm:mx-[7%] flex mt-0 sm:mt-[-30px] z-0 sm:space-x-6">

@@ -78,6 +78,10 @@ function Header() {
                 </div>
             </nav>
 
+            <div className="w-full h-3/5 object-fit w-ful z-0">
+                <img className="h-3/5 w-full z-0" src="/images/header.jpg" alt="Header"/>
+            </div>
+            
             {showModels({isOpen, closeModal, handleSubmit, handleChange})}
         </>
     )
