@@ -44,7 +44,7 @@ function UserPage() {
             <div className="flex flex-wrap w-fit space-x-3">
                 {foundUser.posts.sort((a, b) => b.timestamp - a.timestamp).map(post => {
                     return (
-                        <div className="rounded-none sm:rounded-md px-4 py-5 w-[49.3%] h-auto bg-white text-black z-20">
+                        <div className="rounded-none sm:rounded-md px-4 py-5 w-full sm:w-[49.3%] h-auto bg-white text-black z-20">
                             <Post key={post.id} post={post} user={foundUser} clear={true}/>
                         </div>
                     )

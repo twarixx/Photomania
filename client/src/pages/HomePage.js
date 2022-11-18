@@ -4,7 +4,6 @@ import Post from "../components/Post";
 function HomePage() {
     const posts = users.flatMap(user => user.posts);
 
-
     return (
         <>
             {/*<div*/}
