@@ -21,10 +21,10 @@ function App() {
                     </div>
                 </div>
 
-                <div className="sm:mx-[7%] flex mt-0 sm:mt-[-30px] z-0 sm:space-x-6">
-                    <Sidebar />
+                <div className="sm:mx-[15%] flex mt-0 sm:mt-[-30px] z-0 sm:space-x-6">
+                    <Sidebar/>
 
-                    <div className="rounded-none relative sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white h-full text-black z-20">
+                    <div className="flex flex-col space-y-3 w-full">
                         <Routes>
                             <Route path="/" element={<HomePage/>}/>
                             <Route path="/:username" element={<UserPage/>}/>
@@ -34,6 +34,9 @@ function App() {
                             <Route path="*" element={<UnknownPage/>}/>
                         </Routes>
                     </div>
+                </div>
+
+                <div className="w-full h-5">
 
                 </div>
             </BrowserRouter>
