@@ -21,4 +21,8 @@ body {
         right: 0;
         margin: 10px auto 0px auto;
     }
+
+    .profilecount {
+        @apply text-black font-semibold
+    }
 }

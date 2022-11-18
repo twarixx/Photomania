@@ -4,6 +4,8 @@ const users = [
         display_name: 'Idk',
         verified: false,
         profile_picture: '/images/profile_pictures/Idk.jpg',
+        followers: 0,
+        following: 0,
         posts: [],
     },
     {
@@ -11,6 +13,8 @@ const users = [
         display_name: 'Admin',
         verified: true,
         profile_picture: '/images/profile_pictures/admin.jpg',
+        followers: 17364,
+        following: 2,
         posts: [],
     },
     {
@@ -18,6 +22,8 @@ const users = [
         display_name: 'Noob',
         verified: false,
         profile_picture: null,
+        followers: 0,
+        following: 0,
         posts: [
             {
                 id: 'FOOODD',
@@ -32,6 +38,8 @@ const users = [
         display_name: 'Shaquille',
         verified: true,
         profile_picture: '/images/profile_pictures/shaquille.jpg',
+        followers: 10,
+        following: 10,
         posts: [
             {
                 id: 'ELIE',
@@ -46,6 +54,8 @@ const users = [
         display_name: 'Esmay',
         verified: true,
         profile_picture: '/images/profile_pictures/esmay.jpg',
+        followers: 32767,
+        following: 12,
         posts: [
             {
                 id: 'IHATETHIS',
