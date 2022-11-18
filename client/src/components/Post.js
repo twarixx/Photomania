@@ -6,28 +6,7 @@ const handleLike = (event) => {
     event.preventDefault();
     event.target.src = "/icons/like-active.svg";
 }
-
-function timeSince(timeStamp) {
-    let now = new Date(),
-        secondsPast = (now.getTime() - timeStamp) / 1000;
-    if (secondsPast < 60) {
-        return parseInt(secondsPast) + 's';
-    }
-    if (secondsPast < 3600) {
-        return parseInt(secondsPast / 60) + 'm';
-    }
-    if (secondsPast <= 86400) {
-        return parseInt(secondsPast / 3600) + 'h';
-    }
-    if (secondsPast > 86400) {
-        let day = timeStamp.getDate();
-        let month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ", "");
-        let year = timeStamp.getFullYear() == now.getFullYear() ? "" : " " + timeStamp.getFullYear();
-        return day + " " + month + year;
-    }
-}
-
-const Post = ({post, user}) => {
+const Post = ({post, user, loadLazy}) => {
     return (
         <>
             <div className="flex flex-col">
@@ -54,7 +33,7 @@ const Post = ({post, user}) => {
 
                 <Link to={`/post/${post.id}`}>
                     <div className="flex mt-6 justify-center">
-                        <img className="w-4/6 object-cover" loading="lazy" src={post.source} alt={post.caption}/>
+                        <img className="object-contain w-5/6 mx-[20px]" loading={loadLazy ? 'lazy' : 'eager'} src={post.source} alt={post.caption}/>
                     </div>
                 </Link>
 

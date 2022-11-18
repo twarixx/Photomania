@@ -12,14 +12,15 @@ function HomePage() {
                 </div>
             </div>
 
-            {users.filter(user => user.posts && !user.posts.isEmpty).map(user => {
+            {
+                users.filter(user => user.posts && !user.posts.isEmpty).map(user => {
                 return user.posts.filter(post => post.timestamp).map(post => {
                     return (
                         <>
                             <div
                                 className="rounded-none sm:rounded-md mx-[3px] px-4 py-5 h-auto bg-white text-black z-20">
                                 <div className="flex justify-center items-center">
-                                    <Post key={post.id} post={post} user={user}/>
+                                    <Post key={post.id} post={post} user={user} loadLazy={post.index === 1}/>
                                 </div>
                             </div>
                         </>

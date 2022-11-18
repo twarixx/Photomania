@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import LogoutPage from "./pages/LogoutPage";
 import PostCommentsPage from "./pages/PostCommentsPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
     return (
