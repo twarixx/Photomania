@@ -1,9 +1,30 @@
 import '../App.css'
 import {Link} from "react-router-dom";
+import ReactTimeAgo from "react-time-ago";
 
 const handleLike = (event) => {
     event.preventDefault();
     event.target.src = "/icons/like-active.svg";
+}
+
+function timeSince(timeStamp) {
+    let now = new Date(),
+        secondsPast = (now.getTime() - timeStamp) / 1000;
+    if (secondsPast < 60) {
+        return parseInt(secondsPast) + 's';
+    }
+    if (secondsPast < 3600) {
+        return parseInt(secondsPast / 60) + 'm';
+    }
+    if (secondsPast <= 86400) {
+        return parseInt(secondsPast / 3600) + 'h';
+    }
+    if (secondsPast > 86400) {
+        let day = timeStamp.getDate();
+        let month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ", "");
+        let year = timeStamp.getFullYear() == now.getFullYear() ? "" : " " + timeStamp.getFullYear();
+        return day + " " + month + year;
+    }
 }
 
 const Post = ({post, user}) => {
@@ -21,7 +42,12 @@ const Post = ({post, user}) => {
                                 {user.verified && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg"
                                                        title={user.display_name + ' is verified'} alt="Verified"/>}
                             </div>
+
                             <p className="text-gray-400 text-sm">{post.caption}</p>
+                        </div>
+
+                        <div className="ml-auto mr-0 pr-0">
+                            <p className="text-md text-gray-700">{<ReactTimeAgo date={post.timestamp * 1000}/>}</p>
                         </div>
                     </div>
                 </Link>
