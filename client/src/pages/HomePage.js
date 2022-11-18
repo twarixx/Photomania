@@ -2,7 +2,7 @@ import users from "../components/Users";
 import Post from "../components/Post";
 
 function HomePage() {
-    const posts = users.flatMap(user => user.posts);
+    const posts = users.filter(user => user.username !== 'Esmaybe').flatMap(user => user.posts);
 
     return (
         <>
