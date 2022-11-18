@@ -1,18 +1,18 @@
 import '../App.css'
 import {Link} from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 
 const handleLike = (event) => {
     event.preventDefault();
     event.target.src = "/icons/like-active.svg";
 }
-const Post = ({post, user}) => {
+const Post = ({post, user, clear = false}) => {
     return (
         <>
             <div className="flex flex-col">
-                <Link to={`/${user.username}`}>
+                {!clear && <Link to={`/${user.username}`}>
                     <div className="flex items-center px-4 pb-4 border-b-[#efefef] border-b-2">
                         <img className="w-12 aspect-square object-cover h-full rounded-lg"
                              src={user.profile_picture || '/images/profile_pictures/_default_.jpg'} loading="lazy"
@@ -31,27 +31,33 @@ const Post = ({post, user}) => {
                             <p className="text-md text-gray-700">{<ReactTimeAgo date={post.timestamp * 1000}/>}</p>
                         </div>
                     </div>
-                </Link>
+                </Link>}
 
                 <Link to={`/post/${post.id}`}>
-                    <div className="flex mt-6 justify-center">
-                        <LazyLoadImage className="object-contain w-5/6 mx-[20px]" src={post.source} alt={post.caption}/>
-                    </div>
+                    {clear ? <div className="flex justify-center">
+                            <LazyLoadImage className="object-contain" src={post.source} alt={post.caption}/></div> :
+                        <div className="flex mt-6 justify-center"><LazyLoadImage
+                            className="object-contain w-5/6 mx-[20px]" src={post.source} alt={post.caption}/></div>}
+
                 </Link>
 
-                <div className="flex border-t-[#efefef] border-t-2 p-4 mt-6 pb-0 mb-0"></div>
-                <div className="px-4 flex justify-between">
-                    <div className="flex space-x-3">
-                        <img onClick={handleLike} className="h-10 w-10" src="/icons/like.svg" alt="Like"/>
-                        <Link to={`/post/${post.id}/comments`}><img className="h-10 w-10" src="/icons/comment.svg"
-                                                                    alt="Comment"/></Link>
-                    </div>
+                {!clear &&
+                    <>
+                        <div className="flex border-t-[#efefef] border-t-2 p-4 mt-6 pb-0 mb-0"></div>
+                        <div className="px-4 flex justify-between">
+                            <div className="flex space-x-3">
+                                <img onClick={handleLike} className="h-10 w-10" src="/icons/like.svg" alt="Like"/>
+                                <Link to={`/post/${post.id}/comments`}><img className="h-10 w-10"
+                                                                            src="/icons/comment.svg"
+                                                                            alt="Comment"/></Link>
+                            </div>
 
-                    <div className="flex">
-                        <Link to={`/post/${post.id}`}><img className="h-10 w-10" src="/icons/popout.svg"
-                                                           alt="View post"/></Link>
-                    </div>
-                </div>
+                            <div className="flex">
+                                <Link to={`/post/${post.id}`}><img className="h-10 w-10" src="/icons/popout.svg"
+                                                                   alt="View post"/></Link>
+                            </div>
+                        </div>
+                    </>}
             </div>
         </>
     )
