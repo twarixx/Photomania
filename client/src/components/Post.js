@@ -6,7 +6,7 @@ const Post = ({post, user}) => {
         <>
             <div className="flex flex-col">
                 <Link to={`/${user.username}`}>
-                    <div className="flex items-center p-4 border-b-[#efefef] border-b-2">
+                    <div className="flex items-center px-4 pb-4 border-b-[#efefef] border-b-2">
                         <img className="w-12 aspect-square object-cover h-full rounded-lg"
                              src={user.profile_picture} loading="lazy" alt="Profile Pic"/>
                         <div className="justify-center ml-3">
@@ -20,11 +20,15 @@ const Post = ({post, user}) => {
                     <img className="w-4/6 object-cover" loading="lazy" src={post.source} alt={post.caption}/>
                 </div>
 
-                <div className="border-t-[#efefef] border-t-2 p-4 mt-6 mb-0 pb-0">
-                    <div className="flex justify-center space-x-5">
-                        <img src="/icons/like.svg" alt="Like"/>
-                        <img src="/icons/comment.svg" alt="Comment"/>
-                        <img src="/icons/popout.svg" alt="View post"/>
+                <div className="flex border-t-[#efefef] border-t-2 p-4 mt-6 pb-0 mb-0"></div>
+                <div className="px-4 flex justify-between">
+                    <div className="flex space-x-3">
+                        <Link><img className="h-10 w-10" src="/icons/like.svg" alt="Like"/></Link>
+                        <Link><img className="h-10 w-10" src="/icons/comment.svg" alt="Comment"/></Link>
+                    </div>
+
+                    <div className="flex">
+                        <Link><img className="h-10 w-10" src="/icons/popout.svg" alt="View post"/></Link>
                     </div>
                 </div>
             </div>
