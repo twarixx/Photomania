@@ -47,7 +47,7 @@ const Post = ({post, user, clear = false}) => {
                         <div className="px-4 flex justify-between">
                             <div className="flex space-x-3">
                                 <img onClick={handleLike} className="h-10 w-10" src="/icons/like.svg" alt="Like"/>
-                                <Link to={`/post/${post.id}/comments`}><img className="h-10 w-10"
+                                <Link to={`/post/${post.id}#comments`}><img className="h-10 w-10"
                                                                             src="/icons/comment.svg"
                                                                             alt="Comment"/></Link>
                             </div>
