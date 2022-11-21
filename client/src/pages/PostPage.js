@@ -14,7 +14,7 @@ function PostPage() {
 
     return (
         <div
-            className={"grid-cols-1 lg:grid-cols-2 grid gap-3 h-full"}>
+            className={"grid-cols-1 lg:grid-cols-2 grid gap-3 h-auto"}>
             <div
                 className="rounded-none relative sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white h-auto text-black z-20">
                 <div>
@@ -35,7 +35,7 @@ function PostPage() {
                 </div>
 
                 <div className="flex mt-auto pt-2 justify-center items-end border-t-[#efefef] border-t-2">
-                        <input className="w-full h-auto py-3 text-[#8f8f8f] placeholder=[#8f8f8f] outline-none"
+                        <input className="w-full h-auto py-3 text-[#8f8f8f] placeholder=[#8f8f8f] outline-none pl-3"
                                type="text"
                                placeholder="Create a comment"/>
                 </div>
