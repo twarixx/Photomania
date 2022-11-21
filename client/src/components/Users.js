@@ -30,6 +30,13 @@ const users = [
                 caption: 'Idk i like',
                 source: 'https://images.unsplash.com/photo-1667892465351-4c999c5a8c4c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8',
                 timestamp: 1668769588,
+                comments: [
+                    {
+                        user: 'admin',
+                        comment: 'Nice',
+                        timestamp: 1668769588,
+                    },
+                ],
             },
         ],
     },
@@ -46,6 +53,7 @@ const users = [
                 caption: 'This is elmo!',
                 source: 'https://images.unsplash.com/photo-1581195234513-4dccee3e1898?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2787&q=80',
                 timestamp: 1652864788,
+                comments: [],
             }
         ],
     },
@@ -62,12 +70,14 @@ const users = [
                 caption: 'Hello World',
                 source: 'https://images.unsplash.com/photo-1667387322417-c434fa1f563d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
                 timestamp: 1613642788,
+                comments: [],
             },
             {
                 id: 'CODE',
                 caption: 'This is code',
                 source: 'https://images.unsplash.com/photo-1564865878688-9a244444042a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
                 timestamp: 1668782140,
+                comments: [],
             }
         ],
     }
