@@ -35,9 +35,16 @@ function PostPage() {
                 </div>
 
                 <div className="flex mt-auto pt-2 justify-center items-end border-t-[#efefef] border-t-2">
-                        <input className="w-full h-auto py-3 text-[#8f8f8f] placeholder=[#8f8f8f] outline-none pl-3"
-                               type="text"
-                               placeholder="Create a comment"/>
+                    <div className="mt-3 mb-2 flex-grow relative">
+                        <div className="absolute flex items-center w-6 ml-2 h-full">
+                            <img src="/icons/comment.svg" alt="Search"/>
+                        </div>
+                        <form>
+                            <input id="mobilesearch"
+                                   className="searchbar text-[#8f8f8f] placeholder-[#8f8f8f] rounded-md h-full px-2 pl-10 w-full outline-none border-solid"
+                                   type="text" placeholder="Create a comment"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
