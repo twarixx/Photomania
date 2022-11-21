@@ -27,16 +27,16 @@ function PostPage() {
 
     return (
         <div
-            className={"grid-cols-1 lg:grid-cols-2 grid gap-3 h-auto"}>
+            className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div
-                className="rounded-none relative sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white h-auto text-black z-20">
+                className="rounded-none sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white h-fit text-black z-20">
                 <div>
                     <Post post={post} user={user} clear={false}></Post>
                 </div>
             </div>
 
             <div
-                className="flex flex-col rounded-none relative sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white h-full text-black z-20">
+                className="flex flex-col rounded-none sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white text-black z-20">
                 <div className="justify-start">
                     <p className="header">Comments</p>
 
