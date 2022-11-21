@@ -35,12 +35,12 @@ function PostPage() {
                 </div>
             </div>
 
-            <div
+            <div id="comments"
                 className="flex flex-col rounded-none sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white text-black z-20">
                 <div className="justify-start">
                     <p className="header">Comments</p>
 
-                    {post.comments.length === 0 ? <p className="text-center text-sm">There are no comments!</p> : post.comments.sort((c1, c2) => c2.timestamp - c1.timestamp).map(comment => {
+                    {post.comments.length === 0 ? <p className="text-center text-sm mb-6">There are no comments!</p> : post.comments.sort((c1, c2) => c2.timestamp - c1.timestamp).map(comment => {
                         return (
                             <PostsComment comment={comment} post={post} poster={users.find(user => user.username === comment.user)}></PostsComment>
                         )
