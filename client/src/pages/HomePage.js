@@ -1,8 +1,13 @@
 import users from "../components/Users";
 import Post from "../components/Post";
+import {AuthContext} from "../context/AuthContext";
+import {useContext} from "react";
 
 function HomePage() {
-    const posts = users.filter(user => user.username !== 'Esmaybe').flatMap(user => user.posts);
+    const {currentUser} = useContext(AuthContext);
+
+
+    const posts = users.filter(user => user.username !== currentUser.username).flatMap(user => user.posts);
 
     return (
         <>

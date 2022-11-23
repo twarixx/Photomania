@@ -1,9 +1,11 @@
 import '../App.css';
 import {Link, useNavigate} from "react-router-dom";
 import {Menu, Transition, Dialog, Popover} from "@headlessui/react";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import users from "./Users";
 import Notification from "./Notification";
+import {AuthContext} from "../context/AuthContext";
+import axios from "axios";
 
 let searchValue = '';
 
@@ -11,12 +13,26 @@ function Header() {
     const navigate = useNavigate();
     let [isOpen, setIsOpen] = useState(false);
 
+    const {currentUser, logout} = useContext(AuthContext);
+
     function closeModal() {
         setIsOpen(false)
     }
 
     function openModal() {
         setIsOpen(true)
+    }
+
+    const onLogout = async (event) => {
+        event.preventDefault();
+
+        try {
+            await axios.post('http://localhost:8500/api/auth/logout');
+            logout();
+            navigate('/login');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const handleSubmit = event => {
@@ -85,6 +101,45 @@ function Header() {
             {showModels({isOpen, closeModal, handleSubmit, handleChange})}
         </>
     )
+
+    function userDropdown() {
+        return (
+            <Menu>
+                <div className="flex flex-col z-30">
+
+                    <Menu.Button><img
+                        className="w-9 sm:w-11 aspect-square object-cover rounded-full border-2 border-solid border-white relative"
+                        title={currentUser.display_name} src={currentUser.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/></Menu.Button>
+                    <Transition
+                        enter="transition duration-100 ease-out"
+                        enterFrom="transform scale-95 opacity-0"
+                        enterTo="transform scale-100 opacity-100"
+                        leave="transition duration-75 ease-out"
+                        leaveFrom="transform scale-100 opacity-100"
+                        leaveTo="transform scale-95 opacity-0"
+                    >
+                        <Menu.Items
+                            className="absolute right-0 z-[300] w-56 rounded-md bg-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div className="z-[100] px-1 py-1 ">
+                                <Menu.Item>
+                                    <Link to={`/${currentUser.username}`}><p className="px-4 py-2 border-b hover:bg-gray-700">Profile</p>
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item>
+                                    <Link to="/settings"><p className="px-4 py-2 border-b hover:bg-gray-700">Account
+                                        settings</p></Link>
+                                </Menu.Item>
+                                <Menu.Item>
+                                   <p onClick={onLogout} className="px-4 py-2 hover:bg-gray-700 hover:cursor-pointer">Log out</p>
+                                </Menu.Item>
+                            </div>
+                        </Menu.Items>
+                    </Transition>
+                </div>
+            </Menu>
+        )
+    }
+
 }
 
 function showModels({isOpen, closeModal, handleSubmit, handleChange}) {
@@ -179,44 +234,5 @@ function notifications() {
         </div>
     )
 }
-
-function userDropdown() {
-    return (
-        <Menu>
-            <div className="flex flex-col z-30">
-
-                <Menu.Button><img
-                    className="w-9 sm:w-11 aspect-square object-cover rounded-full border-2 border-solid border-white relative"
-                    title="Esmay" src="/images/profile_pictures/esmay.jpg" alt="Profile Pic"/></Menu.Button>
-                <Transition
-                    enter="transition duration-100 ease-out"
-                    enterFrom="transform scale-95 opacity-0"
-                    enterTo="transform scale-100 opacity-100"
-                    leave="transition duration-75 ease-out"
-                    leaveFrom="transform scale-100 opacity-100"
-                    leaveTo="transform scale-95 opacity-0"
-                >
-                    <Menu.Items
-                        className="absolute right-0 z-[300] w-56 rounded-md bg-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <div className="z-[100] px-1 py-1 ">
-                            <Menu.Item>
-                                <Link to="/esmaybe"><p className="px-4 py-2 border-b hover:bg-gray-700">Profile</p>
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Link to="/settings"><p className="px-4 py-2 border-b hover:bg-gray-700">Account
-                                    settings</p></Link>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Link to="/logout"><p className="px-4 py-2 hover:bg-gray-700">Log out</p></Link>
-                            </Menu.Item>
-                        </div>
-                    </Menu.Items>
-                </Transition>
-            </div>
-        </Menu>
-    )
-}
-
 
 export default Header;

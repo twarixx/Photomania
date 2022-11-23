@@ -1,17 +1,22 @@
 import {Link} from "react-router-dom";
 import users from "./Users";
+import {useContext} from "react";
+import {AuthContext} from "../context/AuthContext";
 
 function Sidebar() {
+    const {currentUser} = useContext(AuthContext);
+
+
     return (
         <div className="hidden sm:flex flex-col w-2/6 space-y-3 z-20">
             <div className="hidden sm:block w-auto rounded-none sm:rounded-md ml-30 w-2/6 bg-white text-black z-20">
-                <Link to="/esmaybe">
+                <Link to={`/${currentUser.username}`}>
                     <div className="flex items-center p-4">
                         <img className="w-14 aspect-square object-cover h-full rounded-lg"
-                             src="/images/profile_pictures/esmay.jpg" alt="Profile Pic"/>
+                             src={currentUser.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/>
                         <div className="justify-center ml-3">
-                            <h1 className="text-md font-semibold">Esmay</h1>
-                            <p className="text-gray-400 text-sm">@esmaybe</p>
+                            <h1 className="text-md font-semibold">{currentUser.display_name}</h1>
+                            <p className="text-gray-400 text-sm">@{currentUser.username}</p>
                         </div>
                     </div>
                 </Link>
@@ -19,8 +24,7 @@ function Sidebar() {
             <div
                 className="hidden sm:block w-auto rounded-none sm:rounded-md ml-30 w-2/6 bg-white text-black z-20 pt-4">
                 <h1 className="header">Suggested Accounts</h1>
-                {/* Get 5 random users without the name Esmaybe*/}
-                {users.filter(user => user.username !== "Esmaybe").sort(() => Math.random() - 0.5).slice(0, 5).map(user => {
+                {users.filter(user => user.username !== currentUser.username).sort(() => Math.random() - 0.5).slice(0, 5).map(user => {
                     return (
                         <Link to={'/' + user.username} className="flex items-center p-4">
                             <img className="w-14 aspect-square object-cover h-full rounded-lg"

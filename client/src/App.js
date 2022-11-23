@@ -9,9 +9,11 @@ import UnknownPage from "./pages/UnknownPage";
 import PostPage from "./pages/PostPage";
 import UploadPage from "./pages/UploadPage";
 import RegisterPage from "./pages/RegisterPage";
+import {AuthContext} from "./context/AuthContext";
+import {useContext} from "react";
 
 function App() {
-    const currentUser = true;
+    const {currentUser} = useContext(AuthContext);
 
     const Layout = () => {
         return (

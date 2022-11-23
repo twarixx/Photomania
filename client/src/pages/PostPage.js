@@ -3,9 +3,12 @@ import users from "../components/Users";
 import UnknownPage from "./UnknownPage";
 import Post from "../components/Post";
 import PostsComment from "../components/PostsComment";
+import {useContext} from "react";
+import {AuthContext} from "../context/AuthContext";
 
 function PostPage() {
     const {postId} = useParams();
+    const {currentUser} = useContext(AuthContext);
 
     let foundComment = '';
 
@@ -22,7 +25,7 @@ function PostPage() {
 
         element.value = '';
 
-        post.comments.push({user: 'Esmaybe', comment: foundComment, timestamp: Date.now()});
+        post.comments.push({user: currentUser.username, comment: foundComment, timestamp: Date.now()});
     }
 
     return (

@@ -1,7 +1,32 @@
 import "../App.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useContext, useState} from "react";
+import {AuthContext} from "../context/AuthContext";
 
 function LoginPage() {
+    const [inputs, setInputs] = useState({
+        username: "",
+        password: ""
+    });
+    const [error, setError] = useState(null);
+    const {login} = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleChange = event => {
+        setInputs(prev => ({...prev, [event.target.name]: event.target.value}));
+    };
+
+    const handleLogin = async event => {
+        event.preventDefault();
+
+        try {
+            await login(inputs);
+            navigate("/");
+        } catch (error) {
+            setError(error.response.data);
+        }
+    }
+
     return (
         <>
             <div className="flex justify-center items-center w-screen h-screen bg-[#A855F7]">
@@ -14,13 +39,17 @@ function LoginPage() {
                         <form>
                             <div className="flex flex-col items-center space-y-[2rem]">
                                 <div>
-                                    <label className="block text-[0.8rem] font-[400] mb-[0.3.rem]" htmlFor="username">Username</label>
-                                    <input className="login-input" type="text" name="username" placeholder="Enter your username." id="username" required></input>
+                                    <label className="block text-[0.8rem] font-[400] mb-[0.3.rem]"
+                                           htmlFor="username">Username</label>
+                                    <input className="login-input" type="text" name="username"
+                                           placeholder="Enter your username." id="username" onChange={handleChange}></input>
                                 </div>
 
                                 <div>
-                                    <label className="block text-[0.8rem] font-[400] mb-[0.3.rem]" htmlFor="password">Password</label>
-                                    <input className="login-input" type="password" name="password" placeholder="Enter your password." id="password" required></input>
+                                    <label className="block text-[0.8rem] font-[400] mb-[0.3.rem]"
+                                           htmlFor="password">Password</label>
+                                    <input className="login-input" type="password" name="password"
+                                           placeholder="Enter your password." id="password" onChange={handleChange}></input>
                                 </div>
                             </div>
 
@@ -29,8 +58,10 @@ function LoginPage() {
                                 <Link className="">Forgot password?</Link>
                             </div>
 
+                            {error && error}
+
                             <div className="submit-login">
-                                <input id="login" type="submit" value="Login"></input>
+                                <input onClick={handleLogin} id="login" type="submit" value="Login"></input>
                             </div>
                         </form>
                     </div>

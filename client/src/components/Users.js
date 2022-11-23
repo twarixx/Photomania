@@ -1,5 +1,6 @@
 const users = [
     {
+        id: 1,
         username: 'Idk',
         display_name: 'Idk',
         verified: false,
@@ -9,6 +10,7 @@ const users = [
         posts: [],
     },
     {
+        id: 2,
         username: 'admin',
         display_name: 'Admin',
         verified: true,
@@ -18,6 +20,7 @@ const users = [
         posts: [],
     },
     {
+        id: 3,
         username: 'noob',
         display_name: 'Noob',
         verified: false,
@@ -41,6 +44,7 @@ const users = [
         ],
     },
     {
+        id: 4,
         username: 'Shaquille',
         display_name: 'Shaquille',
         verified: true,
@@ -58,6 +62,7 @@ const users = [
         ],
     },
     {
+        id: 5,
         username: 'Esmaybe',
         display_name: 'Esmay',
         verified: true,
