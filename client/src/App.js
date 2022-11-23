@@ -1,18 +1,18 @@
 import './App.css';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import UserPage from "./pages/UserPage";
-import PostPage from "./pages/PostPage";
-import UploadPage from "./pages/UploadPage";
-import UnknownPage from "./pages/UnknownPage";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import LogoutPage from "./pages/LogoutPage";
+import LoginPage from "./pages/LoginPage";
+import UserPage from "./pages/UserPage";
+import UnknownPage from "./pages/UnknownPage";
+import PostPage from "./pages/PostPage";
+import UploadPage from "./pages/UploadPage";
 
 function App() {
-    return (
-        <div>
-            <BrowserRouter>
+    const Layout = () => {
+        return (
+            <>
                 <div className="relative">
                     <Header/>
                 </div>
@@ -21,21 +21,55 @@ function App() {
                     <Sidebar/>
 
                     <div className="flex flex-col space-y-3 w-full">
-                        <Routes>
-                            <Route path="/" element={<HomePage/>}/>
-                            <Route path="/:username" element={<UserPage/>}/>
-                            <Route path="/post/:postId" element={<PostPage/>}/>
-                            <Route path="/upload" element={<UploadPage/>}/>
-                            <Route path="/logout" element={<LogoutPage/>}/>
-                            <Route path="*" element={<UnknownPage/>}/>
-                        </Routes>
+                        <Outlet/>
                     </div>
                 </div>
 
                 <div className="w-full h-5">
 
                 </div>
-            </BrowserRouter>
+            </>
+        );
+    };
+
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: (
+                    <Layout />
+            ),
+            children: [
+                {
+                    path: "/",
+                    element: <HomePage />,
+                },
+                {
+                    path: "/:username",
+                    element: <UserPage />,
+                },
+                {
+                    path: "/post/:postId",
+                    element: <PostPage />,
+                },
+                {
+                    path: "/upload",
+                    element: <UploadPage />,
+                },
+                {
+                    path: "*",
+                    element: <UnknownPage />,
+                }
+            ],
+        },
+        {
+            path: "/login",
+            element: <LoginPage />,
+        }
+    ]);
+
+    return (
+        <div>
+            <RouterProvider router={router} />
         </div>
     );
 }
