@@ -24,8 +24,9 @@ function RegisterPage() {
         event.preventDefault();
 
         try {
-            await axios.post("http://localhost:8500/api/auth/register", inputs);
-            navigate("/login");
+            const data = await axios.post("http://localhost:8500/api/auth/register", inputs);
+            await login(inputs, data);
+            window.location.href = "/";
         } catch(error) {
             setError(error.response.data);
         }
@@ -43,13 +44,13 @@ function RegisterPage() {
                         <form>
                             <div className="flex flex-col items-center space-y-[2rem]">
                                 <div>
-                                    <label className="block text-[0.8rem] font-[400] mb-[0.3.rem]" htmlFor="email">Email</label>
-                                    <input className="login-input" type="email" name="email" placeholder="Enter your email." id="email" onChange={handleChange}></input>
+                                    <label className="block text-[0.8rem] font-[400] mb-[0.3.rem]" htmlFor="username">Username</label>
+                                    <input className="login-input" type="text" name="username" placeholder="Enter your username." id="username" onChange={handleChange}></input>
                                 </div>
 
                                 <div>
-                                    <label className="block text-[0.8rem] font-[400] mb-[0.3.rem]" htmlFor="username">Username</label>
-                                    <input className="login-input" type="text" name="username" placeholder="Enter your username." id="username" onChange={handleChange}></input>
+                                    <label className="block text-[0.8rem] font-[400] mb-[0.3.rem]" htmlFor="email">Email</label>
+                                    <input className="login-input" type="email" name="email" placeholder="Enter your email." id="email" onChange={handleChange}></input>
                                 </div>
 
                                 <div>
