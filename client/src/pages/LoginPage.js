@@ -21,7 +21,7 @@ function LoginPage() {
 
         try {
             await login(inputs);
-            navigate("/");
+            window.location.href = "/";
         } catch (error) {
             setError(error.response.data);
         }
