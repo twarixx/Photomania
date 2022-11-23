@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 import authRoutes from "./routes/auth.js";
+import postRoutes from "./routes/posts.js";
 
 app.use((req, res, next) => {
    res.header("Access-Control-Allow-Credentials", true);
@@ -17,6 +18,7 @@ app.use(cors({
 app.use(cookieParser())
 
 app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
 
 app.listen(8500, () => {
     console.log("Server is running on port 8500");
