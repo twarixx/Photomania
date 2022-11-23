@@ -1,5 +1,5 @@
 import './App.css';
-import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
+import {createBrowserRouter, RouterProvider, Outlet, Navigate} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
@@ -8,8 +8,11 @@ import UserPage from "./pages/UserPage";
 import UnknownPage from "./pages/UnknownPage";
 import PostPage from "./pages/PostPage";
 import UploadPage from "./pages/UploadPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
+    const currentUser = true;
+
     const Layout = () => {
         return (
             <>
@@ -32,44 +35,58 @@ function App() {
         );
     };
 
+    const LoggedIn = ({children}) => {
+        if (!currentUser) {
+            return <Navigate to="/login"/>;
+        }
+
+        return children;
+    }
+
     const router = createBrowserRouter([
         {
             path: "/",
             element: (
-                    <Layout />
+                <LoggedIn>
+                    <Layout/>
+                </LoggedIn>
             ),
             children: [
                 {
                     path: "/",
-                    element: <HomePage />,
+                    element: <HomePage/>,
                 },
                 {
                     path: "/:username",
-                    element: <UserPage />,
+                    element: <UserPage/>,
                 },
                 {
                     path: "/post/:postId",
-                    element: <PostPage />,
+                    element: <PostPage/>,
                 },
                 {
                     path: "/upload",
-                    element: <UploadPage />,
+                    element: <UploadPage/>,
                 },
                 {
                     path: "*",
-                    element: <UnknownPage />,
+                    element: <UnknownPage/>,
                 }
             ],
         },
         {
             path: "/login",
-            element: <LoginPage />,
+            element: <LoginPage/>,
+        },
+        {
+            path: "/register",
+            element: <RegisterPage/>,
         }
     ]);
 
     return (
         <div>
-            <RouterProvider router={router} />
+            <RouterProvider router={router}/>
         </div>
     );
 }
