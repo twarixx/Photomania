@@ -1,11 +1,34 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {useState} from "react";
+import imageCompression from "browser-image-compression";
 
 export const UploadDialog = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [file, setFile] = useState(null);
+    const [caption, setCaption] = useState("");
 
     const closeModal = () => setIsOpen(false);
     const openModal = () => setIsOpen(true);
+
+    const handleUpload = async event => {
+        event.preventDefault();
+
+        const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true
+        }
+
+        try {
+            const compressedFile = await imageCompression(file, options);
+            console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+            console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+            console.log(compressedFile);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -43,10 +66,33 @@ export const UploadDialog = () => {
 
                                     <form className="mt-4">
                                         <div className="space-y-3 flex flex-col">
-                                            <input
-                                                   className="h-10 w-full bg-[#eaeaea] border border-[#cccccc] rounded outline-none p-2 text-[#8f8f8f] placeholder-[#8f8f8f]"
-                                                   type="text" placeholder="Caption" name="Caption"/>
-                                            <button
+                                            <input onChange={e => setCaption(e.target.value)}
+                                                className="h-10 w-full bg-[#eaeaea] border border-[#cccccc] rounded outline-none p-2 text-[#8f8f8f] placeholder-[#8f8f8f]"
+                                                type="text" placeholder="Caption" name="Caption"/>
+
+                                            <div className="max-w-xl">
+                                                <label
+                                                    className="flex justify-center text-[38f8f8f] w-full h-32 px-4 transition bg-[#eaeaea] border border-[#cccccc] rounded-md appearance-none cursor-pointer focus:outline-none">
+                                                    <span className="flex items-center space-x-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                             className="w-6 h-6 text-[#8f8f8f]" fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor" strokeWidth="2">
+                                                            <path strokeLinecap="round" strokeLinejoin="round"
+                                                               d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                                        </svg>
+                                                        <span className="font-medium text-[#8f8f8f]">
+                                                            Drop or browse for an image here
+                                                        </span>
+                                                    </span>
+                                                    {file && (
+                                                        <img className="file" alt="" src={URL.createObjectURL(file)} />
+                                                    )}
+                                                    <input accept="image/png, image/jpeg" onChange={event => setFile(event.target.files[0])} type="file" name="file_upload" className="hidden"></input>
+                                                </label>
+                                            </div>
+
+                                            <button onClick={handleUpload}
                                                 className="bg-black rounded 600 text-[#fff] content-center h-10">Upload
                                             </button>
                                         </div>
@@ -57,7 +103,8 @@ export const UploadDialog = () => {
                     </div>
                 </Dialog>
             </Transition>
-            </>
+        </>
     );
+
 }
 

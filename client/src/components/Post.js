@@ -27,7 +27,7 @@ const Post = ({post, clear = false}) => {
                             <p className="text-gray-400 text-sm">{post.caption}</p>
                         </div>
 
-                        <div className="ml-auto mr-0 pr-0">
+                        <div className="ml-auto pl-1 mr-0 pr-0">
                             <p className="text-md text-gray-700">{<ReactTimeAgo date={post.timestamp * 1000}/>}</p>
                         </div>
                     </div>
