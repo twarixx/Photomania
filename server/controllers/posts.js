@@ -19,7 +19,6 @@ export const getPosts = (req, res) => {
     });
 };
 
-
 export const addPost = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("You are not logged in.");
