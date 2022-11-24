@@ -53,7 +53,7 @@ export const addPost = (req, res) => {
         const {caption, source} = req.body;
 
         const query = "INSERT INTO social_posts (`unique_id`, `posterId`, `caption`, `source`, `timestamp`) VALUES (?)";
-        const values = [postId, userInfo.id, caption, source, Date.now()];
+        const values = [postId, userInfo.id, caption, '/images/uploads/' + source, Date.now() / 1000];
 
         db.query(query, [values], (err, data) => {
             if (err) return res.status(500).json(err);

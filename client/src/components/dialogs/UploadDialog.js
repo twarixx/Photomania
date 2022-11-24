@@ -1,6 +1,8 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {useState} from "react";
 import imageCompression from "browser-image-compression";
+import {makeRequest} from "../../axios";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 export const UploadDialog = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,11 +12,9 @@ export const UploadDialog = () => {
     const closeModal = () => setIsOpen(false);
     const openModal = () => setIsOpen(true);
 
-    const handleUpload = async event => {
-        event.preventDefault();
+    const queryClient = useQueryClient();
 
-        if (!caption || !file) return;
-
+    const upload = async () => {
         const options = {
             maxSizeMB: 1,
             maxWidthOrHeight: 1920,
@@ -23,13 +23,42 @@ export const UploadDialog = () => {
 
         try {
             const compressedFile = await imageCompression(file, options);
-            console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-            console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
 
-            console.log(compressedFile);
+            const formData = new FormData();
+            formData.append("file", compressedFile);
+
+            const res = await makeRequest.post("/upload", formData);
+            return res.data;
         } catch (error) {
             console.log(error);
+            return null;
         }
+    }
+
+    const mutation = useMutation(
+        (newPost) => {
+            return makeRequest.post("/posts/", newPost);
+        },
+        {
+            onSuccess: () => queryClient.invalidateQueries(["posts"]),
+        }
+    );
+
+    const handleClick = async event => {
+        event.preventDefault();
+        if (!caption || !file) return;
+
+        const image = await upload();
+        const post = {
+            caption: caption,
+            source: image,
+
+        }
+
+        mutation.mutate(post);
+        setCaption("");
+        setFile(null);
+        closeModal();
     }
 
     return (
@@ -94,7 +123,7 @@ export const UploadDialog = () => {
                                                 </label>
                                             </div>
 
-                                            <button onClick={handleUpload}
+                                            <button onClick={handleClick}
                                                 className="bg-black rounded 600 text-[#fff] content-center h-10">Upload
                                             </button>
                                         </div>
