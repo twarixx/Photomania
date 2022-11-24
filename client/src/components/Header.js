@@ -81,9 +81,7 @@ function Header() {
                     <Link to="/"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/home.svg"
                                       alt="Home" title="Home"/></Link>
 
-                    <img onClick={UploadDialog}
-                         className="w-8 sm:w-9 mr-3 sm:mr-5 h-full"
-                         src="/icons/upload.svg" alt="Upload" title="Upload"/>
+                    <UploadDialog />
 
                     {/*<Link to="/upload"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/upload.svg"*/}
                     {/*                        alt="Upload" title="Upload"/></Link>*/}
