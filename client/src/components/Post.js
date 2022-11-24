@@ -8,20 +8,20 @@ const handleLike = (event) => {
     event.preventDefault();
     event.target.src = "/icons/like-active.svg";
 }
-const Post = ({post, user, clear = false}) => {
+const Post = ({post, clear = false}) => {
     return (
         <>
             <div className="flex flex-col">
-                {!clear && <Link to={`/${user.username}`}>
+                {!clear && <Link to={`/${post.username}`}>
                     <div className="flex items-center px-4 pb-4 border-b-[#efefef] border-b-2">
                         <img className="w-12 aspect-square object-cover h-full rounded-lg"
-                             src={user.profile_picture || '/images/profile_pictures/_default_.jpg'} loading="lazy"
+                             src={post.profile_picture || '/images/profile_pictures/_default_.jpg'} loading="lazy"
                              alt="Profile Pic"/>
                         <div className="justify-center ml-3">
                             <div className="flex items-center">
-                                <p>{user.display_name}</p>
-                                {user.verified && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg"
-                                                       title={user.display_name + ' is verified'} alt="Verified"/>}
+                                <p>{post.display_name}</p>
+                                {post.verified && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg"
+                                                       title={post.display_name + ' is verified'} alt="Verified"/>}
                             </div>
 
                             <p className="text-gray-400 text-sm">{post.caption}</p>

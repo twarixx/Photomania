@@ -6,6 +6,7 @@ import users from "./Users";
 import Notification from "./Notification";
 import {AuthContext} from "../context/AuthContext";
 import axios from "axios";
+import {UploadDialog} from "./dialogs/UploadDialog";
 
 let searchValue = '';
 
@@ -86,8 +87,13 @@ function Header() {
                 <div className="flex items-center">
                     <Link to="/"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/home.svg"
                                       alt="Home" title="Home"/></Link>
-                    <Link to="/upload"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/upload.svg"
-                                            alt="Upload" title="Upload"/></Link>
+
+                    <img onClick={UploadDialog}
+                         className="w-8 sm:w-9 mr-3 sm:mr-5 h-full"
+                         src="/icons/upload.svg" alt="Upload" title="Upload"/>
+
+                    {/*<Link to="/upload"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/upload.svg"*/}
+                    {/*                        alt="Upload" title="Upload"/></Link>*/}
 
                     {notifications()}
                     {userDropdown()}
@@ -109,7 +115,9 @@ function Header() {
 
                     <Menu.Button><img
                         className="w-9 sm:w-11 aspect-square object-cover rounded-full border-2 border-solid border-white relative"
-                        title={currentUser.display_name} src={currentUser.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/></Menu.Button>
+                        title={currentUser.display_name}
+                        src={currentUser.profile_picture || '/images/profile_pictures/_default_.jpg'}
+                        alt="Profile Pic"/></Menu.Button>
                     <Transition
                         enter="transition duration-100 ease-out"
                         enterFrom="transform scale-95 opacity-0"
@@ -122,7 +130,8 @@ function Header() {
                             className="absolute right-0 z-[300] w-56 rounded-md bg-gray-400 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div className="z-[100] px-1 py-1 ">
                                 <Menu.Item>
-                                    <Link to={`/${currentUser.username}`}><p className="px-4 py-2 border-b hover:bg-gray-700">Profile</p>
+                                    <Link to={`/${currentUser.username}`}><p
+                                        className="px-4 py-2 border-b hover:bg-gray-700">Profile</p>
                                     </Link>
                                 </Menu.Item>
                                 <Menu.Item>
@@ -130,7 +139,8 @@ function Header() {
                                         settings</p></Link>
                                 </Menu.Item>
                                 <Menu.Item>
-                                   <p onClick={onLogout} className="px-4 py-2 hover:bg-gray-700 hover:cursor-pointer">Log out</p>
+                                    <p onClick={onLogout}
+                                       className="px-4 py-2 hover:bg-gray-700 hover:cursor-pointer">Log out</p>
                                 </Menu.Item>
                             </div>
                         </Menu.Items>
@@ -205,7 +215,9 @@ function notifications() {
                             <div className="relative">
                                 <img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/notifications.svg"
                                      alt="Notifications" title="Notifications"/>
-                                <div className="absolute flex bottom-6 right-4 items-center justify-center bg-purple-500 rounded-full text-white w-4 h-4 text-xs">2</div>
+                                <div
+                                    className="absolute flex bottom-6 right-4 items-center justify-center bg-purple-500 rounded-full text-white w-4 h-4 text-xs">2
+                                </div>
                             </div>
                         </Popover.Button>
                         <Transition
@@ -221,8 +233,9 @@ function notifications() {
                                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                     <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-1">
                                         <p className="text-black font-semibold block">Notifications</p>
-                                        <Notification title="Shaquille" message="started following you!" userLink="/shaquille"  />
-                                        <Notification title="Admin" message="sent you a message!" userLink="/admin" />
+                                        <Notification title="Shaquille" message="started following you!"
+                                                      userLink="/shaquille"/>
+                                        <Notification title="Admin" message="sent you a message!" userLink="/admin"/>
                                     </div>
 
                                 </div>

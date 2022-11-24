@@ -1,5 +1,5 @@
 import "../App.css";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useContext, useState} from "react";
 import {AuthContext} from "../context/AuthContext";
 
@@ -10,7 +10,6 @@ function LoginPage() {
     });
     const [error, setError] = useState(null);
     const {login} = useContext(AuthContext);
-    const navigate = useNavigate();
 
     const handleChange = event => {
         setInputs(prev => ({...prev, [event.target.name]: event.target.value}));

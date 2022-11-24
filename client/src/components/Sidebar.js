@@ -26,7 +26,7 @@ function Sidebar() {
                 <h1 className="header">Suggested Accounts</h1>
                 {users.filter(user => user.username !== currentUser.username).sort(() => Math.random() - 0.5).slice(0, 5).map(user => {
                     return (
-                        <Link to={'/' + user.username} className="flex items-center p-4">
+                        <Link key={user.username} to={'/' + user.username} className="flex items-center p-4">
                             <img className="w-14 aspect-square object-cover h-full rounded-lg"
                                  src={user.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/>
                             <div className="justify-center ml-3">

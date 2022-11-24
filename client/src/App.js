@@ -7,17 +7,18 @@ import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import UnknownPage from "./pages/UnknownPage";
 import PostPage from "./pages/PostPage";
-import UploadPage from "./pages/UploadPage";
 import RegisterPage from "./pages/RegisterPage";
 import {AuthContext} from "./context/AuthContext";
 import {useContext} from "react";
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 
 function App() {
     const {currentUser} = useContext(AuthContext);
+    const queryClient = new QueryClient()
 
     const Layout = () => {
         return (
-            <>
+            <QueryClientProvider client={queryClient}>
                 <div className="relative">
                     <Header/>
                 </div>
@@ -33,7 +34,7 @@ function App() {
                 <div className="w-full h-5">
 
                 </div>
-            </>
+            </QueryClientProvider>
         );
     };
 
@@ -65,10 +66,6 @@ function App() {
                 {
                     path: "/post/:postId",
                     element: <PostPage/>,
-                },
-                {
-                    path: "/upload",
-                    element: <UploadPage/>,
                 },
                 {
                     path: "*",
