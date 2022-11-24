@@ -22,6 +22,26 @@ export const getPosts = (req, res) => {
     });
 };
 
+export const getPost = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(401).json("You are not logged in.");
+        const {uniqueId} = req.params;
+
+        const query = "SELECT p.*, u.id as userId, u.username, u.display_name, u.profile_picture " +
+            "FROM social_posts AS p JOIN social_users AS u ON p.posterId = u.id WHERE unique_id = ?";
+
+        db.query(query, [uniqueId], (err, data) => {
+            if (err) return res.status(500).json(err);
+            if (!data.length) return res.status(400).json("No post could be found.");
+
+            return res.status(200).json(data[0]);
+        });
+    });
+};
+
 export const addPost = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("You are not logged in.");

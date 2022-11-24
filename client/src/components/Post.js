@@ -33,7 +33,7 @@ const Post = ({post, clear = false}) => {
                     </div>
                 </Link>}
 
-                <Link to={`/post/${post.id}`}>
+                <Link to={`/post/${post.unique_id}`}>
                     {clear ? <div className="flex justify-center">
                             <LazyLoadImage className="aspect-square object-cover" src={post.source} alt={post.caption}/></div> :
                         <div className="flex mt-6 justify-center"><LazyLoadImage
@@ -47,13 +47,13 @@ const Post = ({post, clear = false}) => {
                         <div className="px-4 flex justify-between">
                             <div className="flex space-x-3">
                                 <img onClick={handleLike} className="h-10 w-10" src="/icons/like.svg" alt="Like"/>
-                                <Link to={`/post/${post.id}#comments`}><img className="h-10 w-10"
+                                <Link to={`/post/${post.unique_id}#comments`}><img className="h-10 w-10"
                                                                             src="/icons/comment.svg"
                                                                             alt="Comment"/></Link>
                             </div>
 
                             <div className="flex">
-                                <Link to={`/post/${post.id}`}><img className="h-10 w-10" src="/icons/popout.svg"
+                                <Link to={`/post/${post.unique_id}`}><img className="h-10 w-10" src="/icons/popout.svg"
                                                                    alt="View post"/></Link>
                             </div>
                         </div>
