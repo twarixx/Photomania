@@ -31,7 +31,10 @@ function Sidebar() {
                         <img className="w-14 aspect-square object-cover h-full rounded-lg"
                              src={currentUser.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/>
                         <div className="justify-center ml-3">
-                            <h1 className="text-md font-semibold">{currentUser.display_name}</h1>
+                            <div className="flex items-center">
+                                <h1 className="text-md font-semibold">{currentUser.display_name}</h1>
+                                {currentUser.verified === 1 && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg" title={currentUser.display_name + ' is verified'} alt="Verified"/>}
+                            </div>
                             <p className="text-gray-400 text-sm">@{currentUser.username}</p>
                         </div>
                     </div>
@@ -40,7 +43,7 @@ function Sidebar() {
             <div
                 className="hidden sm:block w-auto rounded-none sm:rounded-md ml-30 w-2/6 bg-white text-black z-20 pt-4">
                 <h1 className="header">Suggested Accounts</h1>
-                {users.filter(user => user.username !== currentUser.username).sort(() => Math.random() - 0.5).slice(0, 5).map(user => {
+                {users.map(user => {
                     return (
                         <Link key={user.username} to={'/' + user.username} className="flex items-center p-4">
                             <img className="w-14 aspect-square object-cover h-full rounded-lg"
