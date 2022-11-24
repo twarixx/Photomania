@@ -13,6 +13,8 @@ export const UploadDialog = () => {
     const handleUpload = async event => {
         event.preventDefault();
 
+        if (!caption || !file) return;
+
         const options = {
             maxSizeMB: 1,
             maxWidthOrHeight: 1920,
