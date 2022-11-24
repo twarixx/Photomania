@@ -19,6 +19,8 @@ function LoginPage() {
     const handleLogin = async event => {
         event.preventDefault();
 
+        if (!inputs.username || !inputs.password) return;
+
         try {
             await login(inputs);
             setError(null);

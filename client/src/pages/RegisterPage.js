@@ -23,6 +23,8 @@ function RegisterPage() {
     const handleClick = async event => {
         event.preventDefault();
 
+        if (!inputs.email || !inputs.username || !inputs.password || !inputs.con_password) return;
+
         try {
             const data = await axios.post("http://localhost:8500/api/auth/register", inputs);
             await login(inputs, data);
