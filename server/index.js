@@ -6,6 +6,7 @@ const app = express();
 
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/user.js";
 
 app.use((req, res, next) => {
    res.header("Access-Control-Allow-Credentials", true);
@@ -19,6 +20,7 @@ app.use(cookieParser())
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(8500, () => {
     console.log("Server is running on port 8500");
