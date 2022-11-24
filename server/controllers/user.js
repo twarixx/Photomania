@@ -39,3 +39,20 @@ export const getPosts = (req, res) => {
         });
     });
 }
+
+export const getRandomUsers = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(401).json("You are not logged in.");
+
+        const query = "SELECT * FROM social_users ORDER BY RAND() LIMIT 0,10;";
+        db.query(query, (err, data) => {
+            if (err) return res.status(500).json(err);
+
+            return res.status(200).json(data);
+        });
+    });
+
+}

@@ -2,7 +2,6 @@ import '../App.css';
 import {Link, useNavigate} from "react-router-dom";
 import {Menu, Transition, Dialog, Popover} from "@headlessui/react";
 import {useContext, useState} from "react";
-import users from "./Users";
 import Notification from "./Notification";
 import {AuthContext} from "../context/AuthContext";
 import axios from "axios";
@@ -45,13 +44,7 @@ function Header() {
                 bar.blur();
                 closeModal();
 
-                const user = users.find(user => user.username.toLowerCase() === searchValue.toLowerCase() || user.display_name.toLowerCase() === searchValue.toLowerCase());
-                if (!user) {
-                    bar.setAttribute('placeholder', 'This user could not be found!');
-                    bar.style.borderColor = 'red';
-                } else {
-                    navigate(`/${user.username}`)
-                }
+                navigate(`/${searchValue}`);
             } else {
                 bar.setAttribute('placeholder', 'What do you want to search');
                 bar.style.borderColor = 'red';

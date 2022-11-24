@@ -1,10 +1,26 @@
 import {Link} from "react-router-dom";
-import users from "./Users";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../context/AuthContext";
+import {makeRequest} from "../axios";
 
 function Sidebar() {
     const {currentUser} = useContext(AuthContext);
+    const [users, setUsers] = useState([]);
+
+    const loadData = async () => {
+        try {
+            const data = await makeRequest.get(`/users/random`);
+            return data.data;
+        } catch {
+            return null;
+        }
+    }
+
+    useEffect(() => {
+        loadData().then(r => {
+            setUsers(r);
+        });
+    }, []);
 
 
     return (
@@ -32,7 +48,7 @@ function Sidebar() {
                             <div className="justify-center ml-3">
                                 <div className="flex items-center">
                                     <p>{user.display_name}</p>
-                                    {user.verified && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg" title={user.display_name + ' is verified'} alt="Verified"/>}
+                                    {user.verified === 1 && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg" title={user.display_name + ' is verified'} alt="Verified"/>}
                                 </div>
                                 <p className="text-gray-400 text-sm">@{user.username}</p>
                             </div>

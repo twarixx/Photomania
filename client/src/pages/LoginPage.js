@@ -1,5 +1,5 @@
 import "../App.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import {AuthContext} from "../context/AuthContext";
 
@@ -9,6 +9,7 @@ function LoginPage() {
         password: ""
     });
     const [error, setError] = useState(null);
+    const [successful, setSuccessful] = useState(null);
     const {login} = useContext(AuthContext);
 
     const handleChange = event => {
@@ -20,7 +21,9 @@ function LoginPage() {
 
         try {
             await login(inputs);
-            window.location.href = "/";
+            setError(null);
+            setSuccessful("Logging you in...");
+            setTimeout(() => window.location.assign("/"), 1000);
         } catch (error) {
             setError(error.response.data);
         }
@@ -33,6 +36,9 @@ function LoginPage() {
                     <div className="text-center text-[2.3rem] font-semibold p-[1rem] mt-[1rem]">
                         <h1>Login</h1>
                     </div>
+
+                    {error && <div className="text-white text-lg font-semibold border-2 border-red-600 mt-2 mb-6 w-3/4 bg-red-500 p-3 rounded-lg text-center">{error}</div>}
+                    {successful && <div className="text-white text-lg font-semibold border-2 border-green-600 mt-2 mb-6 w-3/4 bg-green-500 p-3 rounded-lg text-center">{successful}</div>}
 
                     <div className="mt-4 mb-10">
                         <form>
@@ -56,8 +62,6 @@ function LoginPage() {
                                 <Link to="/register" className="">Create account</Link>
                                 <Link className="">Forgot password?</Link>
                             </div>
-
-                            {error && error}
 
                             <div className="submit-login">
                                 <input onClick={handleLogin} id="login" type="submit" value="Login"></input>

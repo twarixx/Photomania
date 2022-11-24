@@ -1,8 +1,6 @@
 import {useParams} from "react-router-dom";
-import users from "../components/Users";
 import UnknownPage from "./UnknownPage";
 import Post from "../components/Post";
-import PostsComment from "../components/PostsComment";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../context/AuthContext";
 import {makeRequest} from "../axios";

@@ -2,6 +2,16 @@ import {db} from "../database.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+const blacklistedNames = [
+    "post",
+    "posts",
+    "webmaster",
+    "admin",
+    "login",
+    "register",
+    "logout"
+]
+
 export const register = (req, res) => {
     const query = "SELECT * FROM social_users WHERE username = ? OR email = ?";
     const {password, email, username} = req.body;
@@ -12,6 +22,8 @@ export const register = (req, res) => {
 
         const {username, email, password, con_password} = req.body;
         if (password !== con_password) return res.status(400).json("Passwords do not match.");
+
+        if (blacklistedNames.includes(username.toLowerCase())) return res.status(400).json("Username is not allowed.");
 
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
