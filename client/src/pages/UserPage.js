@@ -1,21 +1,27 @@
 import {useLocation} from "react-router-dom";
 import {makeRequest} from "../axios";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import UnknownPage from "./UnknownPage";
 import Post from "../components/Post";
+import {AuthContext} from "../context/AuthContext";
+
 function UserPage() {
+    const {currentUser} = useContext(AuthContext);
+
     const username = useLocation().pathname.split("/")[1];
     const [isLoading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState([]);
 
+    let isFollowing = false;
+
     const loadData = async () => {
-       try {
-           const data = await makeRequest.get(`/users/${username}`);
-           return data.data;
-       } catch {
-           return null;
-       }
+        try {
+            const data = await makeRequest.get(`/users/${username}`);
+            return data.data;
+        } catch {
+            return null;
+        }
     }
 
     const loadPosts = async () => {
@@ -38,6 +44,13 @@ function UserPage() {
         });
     }, [username]);
 
+    const handleButton = event => {
+        event.preventDefault();
+        isFollowing = !isFollowing;
+
+
+    }
+
     function displayPosts() {
         if (posts.length === 0) {
             return (
@@ -56,7 +69,7 @@ function UserPage() {
                 {posts.sort((a, b) => b.timestamp - a.timestamp).map(post => {
                     return (
                         <div key={`P-` + post.id}
-                            className="flex justify-center items-center rounded-none sm:rounded-md px-4 py-5 m-auto w-full h-full bg-white text-black z-20">
+                             className="flex justify-center items-center rounded-none sm:rounded-md px-4 py-5 m-auto w-full h-full bg-white text-black z-20">
                             <Post key={post.id} post={post} clear={true}/>
                         </div>
                     )
@@ -87,15 +100,20 @@ function UserPage() {
 
                         <p className="text-gray-400 text-sm">@{user.username}</p>
 
-                        {/*<div className="flex flex-col mt-auto">*/}
-                        {/*    <p><span*/}
-                        {/*        className="profilecount">{foundUser.followers}</span> {foundUser.followers === 1 ? 'follower' : 'followers'}*/}
-                        {/*    </p>*/}
-                        {/*    <p><span className="profilecount">{foundUser.following}</span> following</p>*/}
-                        {/*    <p><span*/}
-                        {/*        className="profilecount">{foundUser.posts.length}</span> {foundUser.posts.length === 1 ? 'post' : 'posts'}*/}
-                        {/*    </p>*/}
-                        {/*</div>*/}
+                        <div className="flex flex-col mt-3">
+                            <p><span className="profilecount">0 </span>  {0 ? 'follower' : 'followers'}</p>
+                            <p><span className="profilecount">0 </span>  following</p>
+                            <p><span className="profilecount">0 </span>  {0 ? 'post' : 'posts'}</p>
+                        </div>
+                    </div>
+                    <div className="sm:absolute flex flex-col-reverse sm:flex-row items-end sm:items-start sm:justify-end sm:right-5 items-start w-full text-gray-200 font-semibold">
+                        <div>
+                            {currentUser.username === user.username
+                                ? <button className="bg-[#A855F7] p-2 px-6 rounded-md">Manage</button>
+                                : isFollowing
+                                    ? <button onClick={handleButton} className="bg-gray-500 p-2 px-6 rounded-md">Unfollow</button>
+                                    : <button onClick={handleButton} className="bg-[#A855F7] p-2 px-6 rounded-md">Follow</button>}
+                        </div>
                     </div>
                 </div>
             </div>

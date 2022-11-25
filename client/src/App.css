@@ -23,7 +23,7 @@ body {
     }
 
     .profilecount {
-        @apply text-black font-semibold
+        @apply text-black font-semibold inline-flex
     }
 
     .login-input {
