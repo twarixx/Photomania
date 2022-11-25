@@ -84,10 +84,18 @@ const Post = ({post, clear = false}) => {
                         <div className="flex border-t-[#efefef] border-t-2 p-4 mt-6 pb-0 mb-0"></div>
                         <div className="px-4 flex justify-between">
                             <div className="flex space-x-3">
-                                <img onClick={e => handleLike(likes.includes(currentUser.id))} className="h-10 w-10" src={likes.includes(currentUser.id) ? "/icons/like-active.svg" : "/icons/like.svg"} alt="Like"/>
+                                <div className="relative pb-4">
+                                    <img onClick={e => handleLike(likes.includes(currentUser.id))} className="h-10 w-10"
+                                         src={likes.includes(currentUser.id) ? "/icons/like-active.svg" : "/icons/like.svg"}
+                                         alt="Like" title="Like"/>
+                                    <div
+                                        className="absolute flex bottom-11 -right-1.5 items-center justify-center bg-purple-500 rounded-full text-white w-4 h-4 text-xs">{likes.length}
+                                    </div>
+                                </div>
+
                                 <Link to={`/post/${post.unique_id}`}><img className="h-10 w-10"
-                                                                                   src="/icons/comment.svg"
-                                                                                   alt="Comment"/></Link>
+                                                                          src="/icons/comment.svg"
+                                                                          alt="Comment"/></Link>
                             </div>
 
                             <div className="flex">
