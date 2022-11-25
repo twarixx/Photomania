@@ -103,7 +103,7 @@ function UserPage() {
 
                         <p className="text-gray-400 text-sm">@{user.username}</p>
 
-                        <div className="flex flex-col mt-3">
+                        <div className="flex flex-col mt-auto">
                             <p><span className="profilecount">0 </span>  {0 ? 'follower' : 'followers'}</p>
                             <p><span className="profilecount">0 </span>  following</p>
                             <p><span className="profilecount">0 </span>  {0 ? 'post' : 'posts'}</p>
