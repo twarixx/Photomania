@@ -12,8 +12,7 @@ function UserPage() {
     const [isLoading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState([]);
-
-    let isFollowing = false;
+    const [following, setFollowing] = useState([]);
 
     const loadData = async () => {
         try {
@@ -46,9 +45,13 @@ function UserPage() {
 
     const handleButton = event => {
         event.preventDefault();
-        isFollowing = !isFollowing;
 
+        const isFollowing = (following.includes(currentUser.id));
+        if (isFollowing) {
+            return setFollowing(following.filter((follow) => follow !== currentUser.id));
+        }
 
+        return setFollowing([...following, currentUser.id]);
     }
 
     function displayPosts() {
@@ -110,8 +113,8 @@ function UserPage() {
                         <div>
                             {currentUser.username === user.username
                                 ? <button className="bg-[#A855F7] p-2 px-6 rounded-md">Manage</button>
-                                : isFollowing
-                                    ? <button onClick={handleButton} className="bg-gray-500 p-2 px-6 rounded-md">Unfollow</button>
+                                : following.includes(currentUser.id)
+                                    ? <button onClick={handleButton} className="bg-gray-500 p-2 px-4 rounded-md">Unfollow</button>
                                     : <button onClick={handleButton} className="bg-[#A855F7] p-2 px-6 rounded-md">Follow</button>}
                         </div>
                     </div>
