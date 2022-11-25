@@ -2,13 +2,49 @@ import '../App.css'
 import {Link} from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import {LazyLoadImage} from "react-lazy-load-image-component";
+import {makeRequest} from "../axios";
+import {useQuery} from "@tanstack/react-query";
+import {useContext, useEffect, useState} from "react";
+import {AuthContext} from "../context/AuthContext";
 
 
-const handleLike = (event) => {
-    event.preventDefault();
-    event.target.src = "/icons/like-active.svg";
-}
 const Post = ({post, clear = false}) => {
+    const {currentUser} = useContext(AuthContext);
+    const [likes, setLikes] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const handleLike = (liked) => {
+        if (liked) {
+            setLikes(likes.filter((like) => like !== currentUser.id));
+            makeRequest.delete(`/likes?postId=${post.id}`);
+        } else {
+            setLikes([...likes, currentUser.id]);
+            makeRequest.post(`/likes?postId=${post.id}`);
+        }
+    }
+
+    const loadLikes = async () => {
+        try {
+            const data = await makeRequest.get(`/likes?postId=${post.id}`);
+            return data.data;
+        } catch {
+            return [];
+        }
+    }
+
+    useEffect(() => {
+        return () => {
+            loadLikes().then(likes => {
+                setLikes(likes);
+                setLoading(false);
+                console.log(likes);
+            });
+        };
+    }, [post.id]);
+
+
+    if (loading) return <div>Loading...</div>;
+
     return (
         <>
             <div className="flex flex-col">
@@ -20,8 +56,9 @@ const Post = ({post, clear = false}) => {
                         <div className="justify-center ml-3">
                             <div className="flex items-center">
                                 <p>{post.display_name}</p>
-                                {post.verified && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg"
-                                                       title={post.display_name + ' is verified'} alt="Verified"/>}
+                                {post.verified === 1 && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg"
+                                                             title={post.display_name + ' is verified'}
+                                                             alt="Verified"/>}
                             </div>
 
                             <p className="text-gray-400 text-sm">{post.caption}</p>
@@ -35,7 +72,8 @@ const Post = ({post, clear = false}) => {
 
                 <Link to={`/post/${post.unique_id}`}>
                     {clear ? <div className="flex justify-center">
-                            <LazyLoadImage className="aspect-square object-cover" src={post.source} alt={post.caption}/></div> :
+                            <LazyLoadImage className="aspect-square object-cover" src={post.source} alt={post.caption}/>
+                        </div> :
                         <div className="flex mt-6 justify-center"><LazyLoadImage
                             className="object-contain w-5/6 mx-[20px]" src={post.source} alt={post.caption}/></div>}
 
@@ -46,15 +84,15 @@ const Post = ({post, clear = false}) => {
                         <div className="flex border-t-[#efefef] border-t-2 p-4 mt-6 pb-0 mb-0"></div>
                         <div className="px-4 flex justify-between">
                             <div className="flex space-x-3">
-                                <img onClick={handleLike} className="h-10 w-10" src="/icons/like.svg" alt="Like"/>
-                                <Link to={`/post/${post.unique_id}#comments`}><img className="h-10 w-10"
-                                                                            src="/icons/comment.svg"
-                                                                            alt="Comment"/></Link>
+                                <img onClick={e => handleLike(likes.includes(currentUser.id))} className="h-10 w-10" src={likes.includes(currentUser.id) ? "/icons/like-active.svg" : "/icons/like.svg"} alt="Like"/>
+                                <Link to={`/post/${post.unique_id}`}><img className="h-10 w-10"
+                                                                                   src="/icons/comment.svg"
+                                                                                   alt="Comment"/></Link>
                             </div>
 
                             <div className="flex">
                                 <Link to={`/post/${post.unique_id}`}><img className="h-10 w-10" src="/icons/popout.svg"
-                                                                   alt="View post"/></Link>
+                                                                          alt="View post"/></Link>
                             </div>
                         </div>
                     </>}
