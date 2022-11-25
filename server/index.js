@@ -7,6 +7,7 @@ const app = express();
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import userRoutes from "./routes/user.js";
+import commentRoutes from "./routes/comments.js";
 import multer from "multer";
 
 app.use((req, res, next) => {
@@ -37,6 +38,7 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/comments", commentRoutes)
 
 app.listen(8500, () => {
     console.log("Server is running on port 8500");
