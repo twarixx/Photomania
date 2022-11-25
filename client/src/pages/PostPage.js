@@ -24,7 +24,7 @@ function PostPage() {
         }),
     );
 
-    if (post.isLoading) return <div>Loading...</div>;
+    if (post.isLoading || comments.isLoading) return <div>Loading...</div>;
     if (post.error) return <UnknownPage/>;
 
     return (

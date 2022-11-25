@@ -1,5 +1,6 @@
 import '../App.css'
 import {Link} from "react-router-dom";
+import ReactTimeAgo from "react-time-ago";
 
 const PostsComment = ({comment}) => {
     return (
@@ -15,6 +16,9 @@ const PostsComment = ({comment}) => {
                                                      title={comment.display_name + ' is verified'} alt="Verified"/>}
                         </div>
                         <p className="text-gray-400 text-sm">{comment.comment}</p>
+                    </div>
+                    <div className="text-center items-center justify-center ml-auto pl-3 mr-0 pr-0">
+                        <p className="text-sm text-gray-700">{<ReactTimeAgo date={comment.posted_on * 1000}/>}</p>
                     </div>
                 </Link>
             </div>

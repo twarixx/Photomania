@@ -83,9 +83,6 @@ function Header() {
 
                     <UploadDialog />
 
-                    {/*<Link to="/uploads"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/uploads.svg"*/}
-                    {/*                        alt="Upload" title="Upload"/></Link>*/}
-
                     {notifications()}
                     {userDropdown()}
                 </div>
