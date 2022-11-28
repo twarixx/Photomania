@@ -1,8 +1,6 @@
 import './App.css';
-import {createBrowserRouter, RouterProvider, Outlet, Navigate} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import UnknownPage from "./pages/UnknownPage";
@@ -10,33 +8,14 @@ import PostPage from "./pages/PostPage";
 import RegisterPage from "./pages/RegisterPage";
 import {AuthContext} from "./context/AuthContext";
 import {useContext} from "react";
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import {QueryClient} from '@tanstack/react-query'
+import Home from "./pages/admin/Home";
+import {MainLayout} from "./components/layout/MainLayout";
+import {AdminLayout} from "./components/layout/AdminLayout";
 
 function App() {
     const {currentUser} = useContext(AuthContext);
     const queryClient = new QueryClient()
-
-    const Layout = () => {
-        return (
-            <QueryClientProvider client={queryClient}>
-                <div className="relative">
-                    <Header/>
-                </div>
-
-                <div className="sm:mx-[7%] flex mt-0 sm:mt-[-30px] z-0 sm:space-x-6">
-                    <Sidebar/>
-
-                    <div className="flex flex-col space-y-3 w-full">
-                        <Outlet/>
-                    </div>
-                </div>
-
-                <div className="w-full h-5">
-
-                </div>
-            </QueryClientProvider>
-        );
-    };
 
     const LoggedIn = ({children}) => {
         if (!currentUser) {
@@ -51,7 +30,7 @@ function App() {
             path: "/",
             element: (
                 <LoggedIn>
-                    <Layout/>
+                    <MainLayout queryClient={queryClient}/>
                 </LoggedIn>
             ),
             children: [
@@ -69,6 +48,24 @@ function App() {
                 },
                 {
                     path: "*",
+                    element: <UnknownPage/>,
+                }
+            ],
+        },
+        {
+            path: "/panel",
+            element: (
+                <LoggedIn>
+                    <AdminLayout queryClient={queryClient}/>
+                </LoggedIn>
+            ),
+            children: [
+                {
+                    path: "/panel/",
+                    element: <Home/>,
+                },
+                {
+                    path: "/panel/*",
                     element: <UnknownPage/>,
                 }
             ],
