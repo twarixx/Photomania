@@ -25,6 +25,14 @@ function App() {
         return children;
     }
 
+    const IsModerator = ({children}) => {
+        if (currentUser.role === 0) {
+            return <Navigate to="/unknown"/>;
+        }
+
+        return children;
+    }
+
     const router = createBrowserRouter([
         {
             path: "/",
@@ -56,7 +64,9 @@ function App() {
             path: "/panel",
             element: (
                 <LoggedIn>
+                    <IsModerator>
                     <AdminLayout queryClient={queryClient}/>
+                    </IsModerator>
                 </LoggedIn>
             ),
             children: [
