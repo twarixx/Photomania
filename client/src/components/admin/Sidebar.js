@@ -8,8 +8,10 @@ export const Sidebar = () => {
     return (
         <div className="w-[20%] bg-sky-800 h-screen flex flex-col">
             <div className="py-4 text-center text-white text-2xl font-bold border-b-sky-900 border-b-2">
-                <h1 className="hidden sm:block">PHOTOMANIA</h1>
-                <h1 className="sm:hidden block">PM</h1>
+                <Link to="/panel">
+                    <h1 className="hidden sm:block">PHOTOMANIA</h1>
+                    <h1 className="sm:hidden block">PM</h1>
+                </Link>
             </div>
 
             <div className="pl-2 mt-3 pl-2 text-white text-md">
