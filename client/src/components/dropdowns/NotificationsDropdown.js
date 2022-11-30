@@ -1,8 +1,4 @@
-import {Menu, Popover, Transition} from "@headlessui/react";
-import {useContext} from "react";
-import {Link} from "react-router-dom";
-import {AuthContext} from "../../context/AuthContext";
-import axios from "axios";
+import {Popover, Transition} from "@headlessui/react";
 import Notification from "../requirements/Notification";
 
 export const NotificationsDropdown = () => {

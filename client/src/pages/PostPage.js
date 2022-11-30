@@ -1,16 +1,12 @@
 import {useParams} from "react-router-dom";
 import Post from "../components/requirements/Post";
-import {useContext} from "react";
-import {AuthContext} from "../context/AuthContext";
-import {LoadData, makeRequest} from "../axios";
-import {useQuery} from "@tanstack/react-query";
+import {LoadData} from "../axios";
 import UnknownPage from "./UnknownPage";
 import PostsComment from "../components/PostsComment";
 import CreateComment from "../components/requirements/CreateComment";
 
 function PostPage() {
     const {postId} = useParams();
-    const {currentUser} = useContext(AuthContext);
 
     const post = LoadData(["post", postId], `/posts/${postId}`);
     const comments = LoadData(["post:comments", postId], `/comments/${postId}`);

@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext";
-import {LoadData, makeRequest} from "../../axios";
+import {LoadData} from "../../axios";
 
 function Sidebar() {
     const {currentUser} = useContext(AuthContext);

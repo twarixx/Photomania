@@ -11,9 +11,8 @@ const Posts = () => {
     const {data, isLoading, error, fetchNextPage, hasNextPage} = LoadInfiniteData(["posts", currentUser.username], "/posts");
 
     useEffect(() => {
-        if (inView) {
-            fetchNextPage();
-        }
+        if (inView) fetchNextPage();
+        // eslint-disable-next-line
     }, [inView]);
 
     if (error) return "Something went wrong";
@@ -53,7 +52,7 @@ const Posts = () => {
                 </Fragment>
             ))}
 
-            <div className="text-center text-sm mt-2" ref={ref}>{!hasNextPage && "End of feed!"}</div>
+            <div className="text-center text-sm mt-2 text-gray-500" ref={ref}>{!hasNextPage && "End of feed"}</div>
         </>
     )
 };

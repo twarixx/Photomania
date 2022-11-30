@@ -1,8 +1,5 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {useState} from "react";
-import imageCompression from "browser-image-compression";
-import {makeRequest} from "../../axios";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {SearchBar} from "../requirements/SearchBar";
 
 export const SearchDialog = ({navigate}) => {

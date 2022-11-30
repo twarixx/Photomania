@@ -4,7 +4,7 @@ import ReactTimeAgo from "react-time-ago";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {makeRequest} from "../../axios";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext";
 
 

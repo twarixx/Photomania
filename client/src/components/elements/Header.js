@@ -1,10 +1,5 @@
 import '../../App.css';
 import {Link, useNavigate} from "react-router-dom";
-import {Menu, Transition, Dialog, Popover} from "@headlessui/react";
-import {useContext, useState} from "react";
-import Notification from "../requirements/Notification";
-import {AuthContext} from "../../context/AuthContext";
-import axios from "axios";
 import {UploadDialog} from "../dialogs/UploadDialog";
 import {UserDropdown} from "../dropdowns/UserDropdown";
 import {SearchBar} from "../requirements/SearchBar";
