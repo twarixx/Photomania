@@ -4,25 +4,37 @@ import {useContext, useEffect, useState} from "react";
 import UnknownPage from "./UnknownPage";
 import Post from "../components/requirements/Post";
 import {AuthContext} from "../context/AuthContext";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 function UserPage() {
     const {currentUser} = useContext(AuthContext);
 
     const username = useLocation().pathname.split("/")[1];
-    const [following, setFollowing] = useState([]);
 
     const {isLoading, data: user} = LoadData(["user", username], `/users/${username}`);
     const {isLoading: isLoadingPosts, data: posts} = LoadData(["user:posts", username], `/users/${username}/posts`);
+    const {isLoading: isLoadingFollowers, data: followers} = LoadData(["user:followers", username], `/users/${username}/followers`);
+    const {isLoading: isLoadingFollowed, data: followed} = LoadData(["user:followed", username], `/users/${username}/followed`);
+
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation(
+        (followed) => {
+            if (followed) {
+                return makeRequest.delete(`/users/${user.id}/followers`);
+            } else {
+                return makeRequest.post(`/users/${user.id}/followers`);
+            }
+        }, {
+            onSuccess: () => queryClient.invalidateQueries(["user:followers", username]),
+        }
+    );
 
     const handleButton = event => {
         event.preventDefault();
 
-        const isFollowing = (following.includes(currentUser.id));
-        if (isFollowing) {
-            return setFollowing(following.filter((follow) => follow !== currentUser.id));
-        }
-
-        return setFollowing([...following, currentUser.id]);
+        const isFollowing = followers.includes(currentUser.id);
+        mutation.mutate(isFollowing);
     }
 
     function displayPosts() {
@@ -52,7 +64,7 @@ function UserPage() {
         )
     }
 
-    if (isLoading || isLoadingPosts) return "Loading...";
+    if (isLoading || isLoadingPosts || isLoadingFollowed || isLoadingFollowers) return "Loading...";
     if (!user) return <UnknownPage/>;
 
     return (
@@ -75,16 +87,16 @@ function UserPage() {
                         <p className="text-gray-400 text-sm">@{user.username}</p>
 
                         <div className="flex flex-col mt-auto">
-                            <p><span className="profilecount">{following.length} </span>  {following.length ? 'follower' : 'followers'}</p>
-                            <p><span className="profilecount">0 </span>  following</p>
-                            <p><span className="profilecount">0 </span>  {0 ? 'post' : 'posts'}</p>
+                            <p><span className="profilecount">{followers.length} </span>  {followers.length ? 'follower' : 'followers'}</p>
+                            <p><span className="profilecount">{followed.length} </span>  following</p>
+                            <p><span className="profilecount">{posts.length} </span>  {posts.length ? 'post' : 'posts'}</p>
                         </div>
                     </div>
                     <div className="sm:absolute flex flex-col-reverse sm:flex-row items-end sm:items-start sm:justify-end sm:right-5 items-start w-full text-gray-200 font-semibold">
                         <div>
                             {currentUser.username === user.username
                                 ? <button className="bg-[#A855F7] p-2 px-6 rounded-md">Manage</button>
-                                : following.includes(currentUser.id)
+                                : followers.includes(currentUser.id)
                                     ? <button onClick={handleButton} className="bg-gray-500 p-2 px-4 rounded-md">Unfollow</button>
                                     : <button onClick={handleButton} className="bg-[#A855F7] p-2 px-6 rounded-md">Follow</button>}
                         </div>

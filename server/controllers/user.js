@@ -40,6 +40,83 @@ export const getPosts = (req, res) => {
     });
 }
 
+export const getFollowers = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(401).json("You are not logged in.");
+
+        const query = "SELECT r.* from social_relationships as r JOIN social_users as u ON r.followed_user_id = u.id WHERE u.username = ?";
+        const {username} = req.params;
+
+        db.query(query, [username], (err, data) => {
+            if (err) return res.status(500).json(err);
+
+            return res.status(200).json(data.map(follower => follower.follower_user_id));
+        });
+    });
+}
+
+export const getFollowed = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(401).json("You are not logged in.");
+
+        const query = "SELECT r.* from social_relationships as r JOIN social_users as u ON r.follower_user_id = u.id WHERE u.username = ?";
+        const {username} = req.params;
+
+        db.query(query, [username], (err, data) => {
+            if (err) return res.status(500).json(err);
+
+            return res.status(200).json(data.map(follower => follower.follower_user_id));
+        });
+    });
+}
+
+export const addFollower = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(401).json("You are not logged in.");
+
+        const query = "INSERT INTO social_relationships (`followed_user_id`, `follower_user_id`) VALUES (?)";
+        const {userId} = req.params;
+
+        const values = [
+            userId,
+            userInfo.id
+        ]
+
+        db.query(query, [values], (err, data) => {
+            if (err) return res.status(500).json(err);
+
+            return res.status(200).send("Follower added.");
+        });
+    });
+}
+
+export const deleteFollower = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(401).json("You are not logged in.");
+
+        const query = "DELETE FROM social_relationships WHERE followed_user_id = ? AND follower_user_id = ?";
+        const {userId} = req.params;
+
+        db.query(query, [userId, userInfo.id], (err, data) => {
+            if (err) return res.status(500).json(err);
+
+            return res.status(200).send("Follower removed.");
+        });
+    });
+}
+
 export const getRandomUsers = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("You are not logged in.");

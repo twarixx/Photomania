@@ -29,7 +29,7 @@ export const addLike = (req, res) => {
         const query = "INSERT INTO social_posts_likes (`post_id`, `user_id`) VALUES (?)";
         const {postId} = req.query;
 
-        const  values = [
+        const values = [
             postId,
             userInfo.id
         ]
