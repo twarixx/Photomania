@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import Post from "../components/Post";
 import {useContext} from "react";
 import {AuthContext} from "../context/AuthContext";
-import {makeRequest} from "../axios";
+import {LoadData, makeRequest} from "../axios";
 import {useQuery} from "@tanstack/react-query";
 import UnknownPage from "./UnknownPage";
 import PostsComment from "../components/PostsComment";
@@ -12,17 +12,8 @@ function PostPage() {
     const {postId} = useParams();
     const {currentUser} = useContext(AuthContext);
 
-    const post = useQuery(["post"], () =>
-        makeRequest.get(`/posts/${postId}`).then((res) => {
-            return res.data;
-        }),
-    );
-
-    const comments = useQuery(["comments"], () =>
-        makeRequest.get(`/comments/${postId}`).then((res) => {
-            return res.data;
-        }),
-    );
+    const post = LoadData(["post", postId], `/posts/${postId}`);
+    const comments = LoadData(["post:comments", postId], `/comments/${postId}`);
 
     if (post.isLoading || comments.isLoading) return <div>Loading...</div>;
     if (post.error) return <UnknownPage/>;
