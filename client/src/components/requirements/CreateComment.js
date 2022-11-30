@@ -11,10 +11,10 @@ const CreateComment = ({post}) => {
 
     const mutation = useMutation(
         (newComment) => {
-            return makeRequest.post("/comments/", newComment);
+            return makeRequest.post("/comments", newComment);
         },
         {
-            onSuccess: () => queryClient.invalidateQueries(["comments"]),
+            onSuccess: () => queryClient.invalidateQueries(["post:comments"]),
         }
     );
 
