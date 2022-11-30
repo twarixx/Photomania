@@ -1,4 +1,4 @@
-import Post from "./Post";
+import Post from "./requirements/Post";
 import {useQuery} from "@tanstack/react-query";
 import {makeRequest} from "../axios";
 

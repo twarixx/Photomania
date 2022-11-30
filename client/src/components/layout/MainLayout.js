@@ -1,6 +1,6 @@
 import {QueryClientProvider} from "@tanstack/react-query";
-import Header from "../Header";
-import Sidebar from "../Sidebar";
+import Header from "../elements/Header";
+import Sidebar from "../elements/Sidebar";
 import {Outlet} from "react-router-dom";
 
 export const MainLayout = ({queryClient}) => {

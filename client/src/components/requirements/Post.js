@@ -1,49 +1,36 @@
-import '../App.css'
+import '../../App.css'
 import {Link} from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import {LazyLoadImage} from "react-lazy-load-image-component";
-import {makeRequest} from "../axios";
-import {useQuery} from "@tanstack/react-query";
+import {makeRequest} from "../../axios";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useContext, useEffect, useState} from "react";
-import {AuthContext} from "../context/AuthContext";
+import {AuthContext} from "../../context/AuthContext";
 
 
 const Post = ({post, clear = false}) => {
     const {currentUser} = useContext(AuthContext);
-    const [likes, setLikes] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation(
+        (liked) => {
+            if (liked) {
+                return makeRequest.delete(`/likes?postId=${post.id}`);
+            } else {
+                return makeRequest.post(`/likes?postId=${post.id}`);
+            }
+        }, {
+            onSuccess: () => queryClient.invalidateQueries(["likes"]),
+        }
+    );
 
     const handleLike = (liked) => {
-        if (liked) {
-            setLikes(likes.filter((like) => like !== currentUser.id));
-            makeRequest.delete(`/likes?postId=${post.id}`);
-        } else {
-            setLikes([...likes, currentUser.id]);
-            makeRequest.post(`/likes?postId=${post.id}`);
-        }
+        mutation.mutate(liked);
     }
 
-    const loadLikes = async () => {
-        try {
-            const data = await makeRequest.get(`/likes?postId=${post.id}`);
-            return data.data;
-        } catch {
-            return [];
-        }
-    }
-
-    useEffect(() => {
-        return () => {
-            loadLikes().then(likes => {
-                setLikes(likes);
-                setLoading(false);
-                console.log(likes);
-            });
-        };
-    }, [post.id]);
-
-
-    if (loading) return <div>Loading...</div>;
+    const {data: likes, isLoading} = useQuery(['likes', post.id], () => makeRequest.get(`/likes?postId=${post.id}`));
+    if (isLoading) return <div>Loading...</div>;
+    if (!likes) return <div>Failed to load likes</div>;
 
     return (
         <>
@@ -85,11 +72,11 @@ const Post = ({post, clear = false}) => {
                         <div className="px-4 flex justify-between">
                             <div className="flex space-x-3">
                                 <div className="relative pb-4">
-                                    <img onClick={e => handleLike(likes.includes(currentUser.id))} className="h-10 w-10"
-                                         src={likes.includes(currentUser.id) ? "/icons/like-active.svg" : "/icons/like.svg"}
+                                    <img onClick={e => handleLike(likes.data.includes(currentUser.id))} className="h-10 w-10"
+                                         src={likes.data.includes(currentUser.id) ? "/icons/like-active.svg" : "/icons/like.svg"}
                                          alt="Like" title="Like"/>
                                     <div
-                                        className="absolute flex bottom-11 -right-1.5 items-center justify-center bg-purple-500 rounded-full text-white w-4 h-4 text-xs">{likes.length}
+                                        className="absolute flex bottom-11 -right-1.5 items-center justify-center bg-purple-500 rounded-full text-white w-4 h-4 text-xs">{likes.data.length}
                                     </div>
                                 </div>
 

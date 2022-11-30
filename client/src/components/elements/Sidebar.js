@@ -1,27 +1,13 @@
 import {Link} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
-import {AuthContext} from "../context/AuthContext";
-import {makeRequest} from "../axios";
+import {AuthContext} from "../../context/AuthContext";
+import {LoadData, makeRequest} from "../../axios";
 
 function Sidebar() {
     const {currentUser} = useContext(AuthContext);
-    const [users, setUsers] = useState([]);
 
-    const loadData = async () => {
-        try {
-            const data = await makeRequest.get(`/users/random`);
-            return data.data;
-        } catch {
-            return null;
-        }
-    }
-
-    useEffect(() => {
-        loadData().then(r => {
-            setUsers(r);
-        });
-    }, []);
-
+    const {isLoading, data} = LoadData(["sidebar:random_users"], "/users/random");
+    if (isLoading) return "Loading...";
 
     return (
         <div className="hidden sm:flex flex-col w-2/6 space-y-3 z-20">
@@ -43,7 +29,7 @@ function Sidebar() {
             <div
                 className="hidden sm:block w-auto rounded-none sm:rounded-md ml-30 w-2/6 bg-white text-black z-20 pt-4">
                 <h1 className="header">Suggested Accounts</h1>
-                {users.map(user => {
+                {data.map(user => {
                     return (
                         <Link key={user.username} to={'/' + user.username} className="flex items-center p-4">
                             <img className="w-14 aspect-square object-cover h-full rounded-lg"

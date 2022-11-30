@@ -2,7 +2,7 @@ import {useLocation} from "react-router-dom";
 import {LoadData, makeRequest} from "../axios";
 import {useContext, useEffect, useState} from "react";
 import UnknownPage from "./UnknownPage";
-import Post from "../components/Post";
+import Post from "../components/requirements/Post";
 import {AuthContext} from "../context/AuthContext";
 
 function UserPage() {

@@ -1,11 +1,11 @@
-import '../App.css';
+import '../../App.css';
 import {Link, useNavigate} from "react-router-dom";
 import {Menu, Transition, Dialog, Popover} from "@headlessui/react";
 import {useContext, useState} from "react";
-import Notification from "./Notification";
-import {AuthContext} from "../context/AuthContext";
+import Notification from "../requirements/Notification";
+import {AuthContext} from "../../context/AuthContext";
 import axios from "axios";
-import {UploadDialog} from "./dialogs/UploadDialog";
+import {UploadDialog} from "../dialogs/UploadDialog";
 
 let searchValue = '';
 

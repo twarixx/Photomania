@@ -1,12 +1,12 @@
 import {useParams} from "react-router-dom";
-import Post from "../components/Post";
+import Post from "../components/requirements/Post";
 import {useContext} from "react";
 import {AuthContext} from "../context/AuthContext";
 import {LoadData, makeRequest} from "../axios";
 import {useQuery} from "@tanstack/react-query";
 import UnknownPage from "./UnknownPage";
 import PostsComment from "../components/PostsComment";
-import CreateComment from "../components/CreateComment";
+import CreateComment from "../components/requirements/CreateComment";
 
 function PostPage() {
     const {postId} = useParams();

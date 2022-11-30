@@ -9,10 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import {AuthContext} from "./context/AuthContext";
 import {useContext} from "react";
 import {QueryClient} from '@tanstack/react-query'
-import Home from "./pages/admin/Home";
 import {MainLayout} from "./components/layout/MainLayout";
-import {AdminLayout} from "./components/layout/AdminLayout";
-import {Users} from "./pages/admin/Users";
 
 function App() {
     const {currentUser} = useContext(AuthContext);

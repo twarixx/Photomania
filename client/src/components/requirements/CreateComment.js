@@ -1,7 +1,7 @@
 import {useContext, useState} from "react";
-import {AuthContext} from "../context/AuthContext";
+import {AuthContext} from "../../context/AuthContext";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {makeRequest} from "../axios";
+import {makeRequest} from "../../axios";
 
 const CreateComment = ({post}) => {
     const [comment, setComment] = useState("");
