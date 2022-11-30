@@ -1,14 +1,13 @@
 import Post from "./requirements/Post";
 import {useQuery} from "@tanstack/react-query";
-import {makeRequest} from "../axios";
+import {LoadData, makeRequest} from "../axios";
+import {useContext} from "react";
+import {AuthContext} from "../context/AuthContext";
 
 const Posts = () => {
+    const {currentUser} = useContext(AuthContext);
 
-    const {isLoading, error, data} = useQuery(["posts"], () =>
-        makeRequest.get("/posts").then((res) => {
-            return res.data;
-        })
-    );
+    const {data, isLoading, error} = LoadData(["posts", currentUser.username], "/posts");
 
     return error
         ? "Something went wrong"
