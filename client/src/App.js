@@ -9,7 +9,9 @@ import RegisterPage from "./pages/RegisterPage";
 import {AuthContext} from "./context/AuthContext";
 import {useContext} from "react";
 import {QueryClient} from '@tanstack/react-query'
-import {MainLayout} from "./components/layout/MainLayout";
+import {MainLayout} from "./components/MainLayout";
+import {DashboardPage} from "./admin/pages/DashboardPage";
+import {AdminLayout} from "./admin/components/AdminLayout";
 
 function App() {
     const {currentUser} = useContext(AuthContext);
@@ -18,6 +20,14 @@ function App() {
     const LoggedIn = ({children}) => {
         if (!currentUser) {
             return <Navigate to="/login"/>;
+        }
+
+        return children;
+    }
+
+    const IsModerator = ({children}) => {
+        if (currentUser?.role === 0) {
+            return <Navigate to="/"/>;
         }
 
         return children;
@@ -48,6 +58,20 @@ function App() {
                     path: "*",
                     element: <UnknownPage/>,
                 }
+            ],
+        },
+        {
+            path: "/panel",
+            element: (
+                <LoggedIn>
+                    <AdminLayout queryClient={queryClient}/>
+                </LoggedIn>
+            ),
+            children: [
+                {
+                    path: "/panel",
+                    element: <DashboardPage/>,
+                },
             ],
         },
         {
