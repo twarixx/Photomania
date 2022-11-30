@@ -45,8 +45,7 @@ export const UserDropdown = ({navigate}) => {
                                 </Link>
                             </Menu.Item>
                             <Menu.Item>
-                                <Link to="/settings"><p className="px-4 py-2 border-b hover:bg-gray-700">Account
-                                    settings</p></Link>
+                                <Link to="/settings"><p className="px-4 py-2 border-b hover:bg-gray-700">Manage account</p></Link>
                             </Menu.Item>
                             <Menu.Item>
                                 <p onClick={onLogout}
