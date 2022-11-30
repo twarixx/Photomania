@@ -13,6 +13,11 @@ export const AuthContextProvider = ({children}) => {
         setCurrentUser(res.data);
     }
 
+    const refetch = async () => {
+        const res = await axios.get(`http://localhost:8500/api/users/${currentUser.username}`, {withCredentials: true});
+        setCurrentUser(res.data);
+    }
+
     const logout = () => {
         setCurrentUser(null);
     }
@@ -22,7 +27,7 @@ export const AuthContextProvider = ({children}) => {
     });
 
     return (
-        <AuthContext.Provider value={{currentUser, login, logout}}>
+        <AuthContext.Provider value={{currentUser, login, logout, refetch}}>
             {children}
         </AuthContext.Provider>
     )

@@ -20,7 +20,7 @@ const Posts = () => {
 
     console.log(data)
 
-    if (!data || !data.pages.length) {
+    if (!data || !data.pages[0].data.length) {
         return (
             <div
                 className="rounded-none sm:rounded-md mx-[3px] px-4 py-5 h-auto bg-white text-black z-20">

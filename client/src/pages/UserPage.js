@@ -5,6 +5,7 @@ import UnknownPage from "./UnknownPage";
 import Post from "../components/requirements/Post";
 import {AuthContext} from "../context/AuthContext";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {AccountSettingsDialog} from "../components/dialogs/AccountSettingsDialog";
 
 function UserPage() {
     const {currentUser} = useContext(AuthContext);
@@ -12,7 +13,7 @@ function UserPage() {
     const username = useLocation().pathname.split("/")[1];
 
     const {isLoading, data: user} = LoadData(["user", username], `/users/${username}`);
-    const {isLoading: isLoadingPosts, data: posts} = LoadData(["user:posts", username], `/users/${username}/posts`);
+    const {isLoading: isLoadingPosts, data: posts} = LoadData(["posts", "by", username], `/users/${username}/posts`);
     const {isLoading: isLoadingFollowers, data: followers} = LoadData(["user:followers", username], `/users/${username}/followers`);
     const {isLoading: isLoadingFollowed, data: followed} = LoadData(["user:followed", username], `/users/${username}/followed`);
 
@@ -72,10 +73,9 @@ function UserPage() {
             <div
                 className="rounded-none relative sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white h-auto text-black z-20">
                 <div className="flex">
-                    <a rel="noreferrer" target="_blank"
-                       href={user.profile_picture || '/images/profile_pictures/_default_.jpg'}><img
-                        className="w-36 aspect-square object-cover h-full rounded-md"
-                        src={user.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/></a>
+                    <img
+                        className="sm:w-36 aspect-square object-cover h-full rounded-md"
+                        src={user.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/>
                     <div className="flex flex-col ml-3">
                         <div className="flex">
                             <p className="text-lg">{user.display_name}</p>
@@ -87,18 +87,18 @@ function UserPage() {
                         <p className="text-gray-400 text-sm">@{user.username}</p>
 
                         <div className="flex flex-col mt-auto">
-                            <p><span className="profilecount">{followers.length} </span>  {followers.length ? 'follower' : 'followers'}</p>
-                            <p><span className="profilecount">{followed.length} </span>  following</p>
-                            <p><span className="profilecount">{posts.length} </span>  {posts.length ? 'post' : 'posts'}</p>
+                            <p className="sm:inline block"><span className="sm:inline block font-bold">{followers.length} </span>  {followers.length ? 'follower' : 'followers'}</p>
+                            <p className="sm:inline block"><span className="sm:inline block mt-1 font-bold">{followed.length} </span>  following</p>
+                            <p className="sm:inline block"><span className="sm:inline block mt-1 font-bold">{posts.length} </span>  {posts.length ? 'post' : 'posts'}</p>
                         </div>
                     </div>
                     <div className="sm:absolute flex flex-col-reverse sm:flex-row items-end sm:items-start sm:justify-end sm:right-5 items-start w-full text-gray-200 font-semibold">
                         <div>
                             {currentUser.username === user.username
-                                ? <button className="bg-[#A855F7] p-2 px-6 rounded-md">Manage</button>
+                                ? <AccountSettingsDialog/>
                                 : followers.includes(currentUser.id)
-                                    ? <button onClick={handleButton} className="bg-gray-500 p-2 px-4 rounded-md">Unfollow</button>
-                                    : <button onClick={handleButton} className="bg-[#A855F7] p-2 px-6 rounded-md">Follow</button>}
+                                    ? <button onClick={handleButton} className="bg-gray-500 p-1 px-2 sm:p-2 sm:px-4 rounded-md">Unfollow</button>
+                                    : <button onClick={handleButton} className="bg-[#A855F7] p-1 px-2 sm:p-2 sm:px-4 rounded-md">Follow</button>}
                         </div>
                     </div>
                 </div>

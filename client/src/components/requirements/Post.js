@@ -1,7 +1,6 @@
 import '../../App.css'
 import {Link} from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
-import {LazyLoadImage} from "react-lazy-load-image-component";
 import {makeRequest} from "../../axios";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useContext} from "react";
@@ -38,7 +37,8 @@ const Post = ({post, clear = false}) => {
                 {!clear && <Link to={`/${post.username}`}>
                     <div className="flex items-center px-4 pb-4 border-b-[#efefef] border-b-2">
                         <img className="w-12 aspect-square object-cover h-full rounded-lg"
-                             src={post.profile_picture || '/images/profile_pictures/_default_.jpg'} loading="lazy"
+                             src={post.profile_picture || '/images/profile_pictures/_default_.jpg'}
+                             src={post.profile_picture || '/images/profile_pictures/_default_.jpg'}
                              alt="Profile Pic"/>
                         <div className="justify-center ml-3">
                             <div className="flex items-center">
@@ -59,9 +59,9 @@ const Post = ({post, clear = false}) => {
 
                 <Link to={`/post/${post.unique_id}`}>
                     {clear ? <div className="flex justify-center">
-                            <LazyLoadImage className="aspect-square object-cover" src={post.source} alt={post.caption}/>
+                            <img className="aspect-square object-cover" src={post.source} alt={post.caption}/>
                         </div> :
-                        <div className="flex mt-6 justify-center"><LazyLoadImage
+                        <div className="flex mt-6 justify-center"><img
                             className="object-contain w-5/6 mx-[20px]" src={post.source} alt={post.caption}/></div>}
 
                 </Link>
