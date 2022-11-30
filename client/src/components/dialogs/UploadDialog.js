@@ -1,7 +1,6 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {useState} from "react";
-import imageCompression from "browser-image-compression";
-import {makeRequest} from "../../axios";
+import {makeRequest, Upload} from "../../axios";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 export const UploadDialog = () => {
@@ -14,33 +13,15 @@ export const UploadDialog = () => {
 
     const queryClient = useQueryClient();
 
-    const upload = async () => {
-        const options = {
-            maxSizeMB: 1,
-            maxWidthOrHeight: 1920,
-            useWebWorker: true
-        }
-
-        try {
-            const compressedFile = await imageCompression(file, options);
-
-            const formData = new FormData();
-            formData.append("file", compressedFile);
-
-            const res = await makeRequest.post("/upload", formData);
-            return res.data;
-        } catch (error) {
-            console.log(error);
-            return null;
-        }
-    }
-
     const mutation = useMutation(
         (newPost) => {
             return makeRequest.post("/posts/", newPost);
         },
         {
-            onSuccess: () => queryClient.invalidateQueries(["posts"]),
+            onSuccess: () => {
+                queryClient.invalidateQueries(["posts"]);
+                queryClient.invalidateQueries(["user:posts"]);
+            },
         }
     );
 
@@ -48,7 +29,7 @@ export const UploadDialog = () => {
         event.preventDefault();
         if (!caption || !file) return;
 
-        const image = await upload();
+        const image = await Upload(file);
         const post = {
             caption: caption,
             source: image,

@@ -13,7 +13,7 @@ function UserPage() {
     const username = useLocation().pathname.split("/")[1];
 
     const {isLoading, data: user} = LoadData(["user", username], `/users/${username}`);
-    const {isLoading: isLoadingPosts, data: posts} = LoadData(["posts", "by", username], `/users/${username}/posts`);
+    const {isLoading: isLoadingPosts, data: posts} = LoadData(["user:posts", "by", username], `/users/${username}/posts`);
     const {isLoading: isLoadingFollowers, data: followers} = LoadData(["user:followers", username], `/users/${username}/followers`);
     const {isLoading: isLoadingFollowed, data: followed} = LoadData(["user:followed", username], `/users/${username}/followed`);
 

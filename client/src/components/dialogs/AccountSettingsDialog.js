@@ -87,7 +87,7 @@ export const AccountSettingsDialog = () => {
                                                          src={
                                                              profile
                                                                  ? URL.createObjectURL(profile)
-                                                                 : user.profile_picture
+                                                                 : user.profile_picture || '/images/profile_pictures/_default_.jpg'
                                                          }
                                                          alt=""
                                                     />
@@ -113,7 +113,7 @@ export const AccountSettingsDialog = () => {
                                                         type="email"
                                                         id="email"
                                                         name="email"
-                                                        value={texts.email} 
+                                                        value={texts.email}
                                                         onChange={handleChange}
                                                     />
                                                 </div>
