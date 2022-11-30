@@ -74,12 +74,12 @@ export const AccountSettingsDialog = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel
-                                    className="w-screen max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    className="w-screen max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 
                                     <h1 className="text-center text-lg font-semibold">Account Settings</h1>
 
                                     <form className="mt-4">
-                                        <div className="space-y-3 flex flex-col">
+                                        <div className="grid grid-cols-2 gap-2">
                                             <div>
                                                 <label htmlFor="profile">
                                                     <span>Profile Picture</span>
@@ -95,15 +95,63 @@ export const AccountSettingsDialog = () => {
                                                 <input
                                                     type="file"
                                                     id="profile"
+                                                    accept="image/png, image/jpeg"
                                                     style={{display: "none"}}
                                                     onChange={(e) => setProfile(e.target.files[0])}
                                                 />
                                             </div>
 
-                                            <button onClick={handleClick}
-                                                    className="bg-black rounded 600 text-[#fff] content-center h-10">Update
-                                            </button>
+                                            <div className="mt-0.5 flex flex-col justify-between">
+                                                <div className="flex flex-col">
+                                                    <label htmlFor="email">
+                                                        <span>Email</span>
+                                                    </label>
+
+                                                    <input
+                                                        className="p-2 bg-[#efefef] rounded-md"
+                                                        placeholder="Email"
+                                                        type="email"
+                                                        id="email"
+                                                        name="email"
+                                                        value={texts.email} 
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <label htmlFor="username">
+                                                        <span>Username</span>
+                                                    </label>
+
+                                                    <input
+                                                        className="p-2 bg-[#efefef] rounded-md"
+                                                        placeholder="Username"
+                                                        type="text"
+                                                        id="username"
+                                                        name="username"
+                                                        value={texts.username}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <label htmlFor="display">
+                                                        <span>Display Name</span>
+                                                    </label>
+
+                                                    <input
+                                                        className="p-2 bg-[#efefef] rounded-md"
+                                                        placeholder="Display Name"
+                                                        type="text"
+                                                        id="display"
+                                                        name="display_name"
+                                                        value={texts.display_name}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
+                                        <button onClick={handleClick}
+                                                className="bg-black w-full my-5 rounded 600 text-[#fff] content-center h-10">Update
+                                        </button>
                                     </form>
                                 </Dialog.Panel>
                             </Transition.Child>

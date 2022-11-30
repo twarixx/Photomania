@@ -34,7 +34,7 @@ export const updateUser = (req, res) => {
             req.body.email,
             req.body.username,
             req.body.display_name,
-            '/images/uploads/' + req.body.profile_picture,
+            req.body.profile_picture.startsWith('/images') ? req.body.profile_picture : '/images/uploads/' + req.body.profile_picture,
             userInfo.id
         ]
 
