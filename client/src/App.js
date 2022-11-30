@@ -62,34 +62,6 @@ function App() {
             ],
         },
         {
-            path: "/panel",
-            element: (
-                <LoggedIn>
-                    <IsModerator>
-                    <AdminLayout queryClient={queryClient}/>
-                    </IsModerator>
-                </LoggedIn>
-            ),
-            children: [
-                {
-                    path: "/panel/",
-                    element: <Home/>,
-                },
-                {
-                    path: "/panel/users",
-                    element: <Users/>,
-                },
-                {
-                    path: "/panel/users/:username",
-                    element: <Users/>,
-                },
-                {
-                    path: "/panel/*",
-                    element: <UnknownPage/>,
-                }
-            ],
-        },
-        {
             path: "/login",
             element: <LoginPage/>,
         },
