@@ -1,5 +1,5 @@
 import {useLocation} from "react-router-dom";
-import {makeRequest} from "../axios";
+import {LoadData, makeRequest} from "../axios";
 import {useContext, useEffect, useState} from "react";
 import UnknownPage from "./UnknownPage";
 import Post from "../components/Post";
@@ -9,39 +9,10 @@ function UserPage() {
     const {currentUser} = useContext(AuthContext);
 
     const username = useLocation().pathname.split("/")[1];
-    const [isLoading, setLoading] = useState(true);
-    const [user, setUser] = useState(null);
-    const [posts, setPosts] = useState([]);
     const [following, setFollowing] = useState([]);
 
-    const loadData = async () => {
-        try {
-            const data = await makeRequest.get(`/users/${username}`);
-            return data.data;
-        } catch {
-            return null;
-        }
-    }
-
-    const loadPosts = async () => {
-        try {
-            const data = await makeRequest.get(`/users/${username}/posts`);
-            return data.data;
-        } catch {
-            return [];
-        }
-    }
-
-    useEffect(() => {
-        loadData().then(r => {
-            setUser(r);
-            setLoading(false);
-        });
-
-        loadPosts().then(r => {
-            setPosts(r);
-        });
-    }, [username]);
+    const {isLoading, data: user} = LoadData(["user", username], `/users/${username}`);
+    const {isLoading: isLoadingPosts, data: posts} = LoadData(["user:posts", username], `/users/${username}/posts`);
 
     const handleButton = event => {
         event.preventDefault();
