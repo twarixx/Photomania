@@ -52,7 +52,7 @@ function UserPage() {
         )
     }
 
-    if (isLoading) return "Loading...";
+    if (isLoading || isLoadingPosts) return "Loading...";
     if (!user) return <UnknownPage/>;
 
     return (
