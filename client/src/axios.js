@@ -10,7 +10,9 @@ export const LoadData = (identifier, url) => {
     return useQuery(identifier, () =>
         makeRequest.get(url).then((res) => {
             return res.data;
-        })
+        }), {
+            retry: false
+        }
     );
 }
 
