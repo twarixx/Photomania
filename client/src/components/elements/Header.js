@@ -4,7 +4,6 @@ import {UploadDialog} from "../dialogs/UploadDialog";
 import {UserDropdown} from "../dropdowns/UserDropdown";
 import {SearchBar} from "../requirements/SearchBar";
 import {SearchDialog} from "../dialogs/SearchDialog";
-import {NotificationsDropdown} from "../dropdowns/NotificationsDropdown";
 import {AuthContext} from "../../context/AuthContext";
 import {useContext} from "react";
 
@@ -35,7 +34,6 @@ function Header() {
 
                     <UploadDialog />
 
-                    <NotificationsDropdown/>
                     <UserDropdown navigate={navigate}/>
                 </div>
             </nav>

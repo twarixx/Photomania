@@ -7,7 +7,9 @@ export const AdminLayout = ({queryClient}) => {
         <QueryClientProvider client={queryClient}>
             <div className="w-screen h-screen bg-[#eaeaea] flex">
                 <Sidebar/>
-                <Outlet/>
+                <div className="p-4">
+                    <Outlet/>
+                </div>
             </div>
         </QueryClientProvider>
     )

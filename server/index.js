@@ -9,6 +9,7 @@ import postRoutes from "./routes/posts.js";
 import userRoutes from "./routes/user.js";
 import commentRoutes from "./routes/comments.js";
 import likeRoutes from "./routes/likes.js";
+import notificationRoutes from "./routes/notifications.js";
 import multer from "multer";
 
 app.use((req, res, next) => {
@@ -41,6 +42,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/comments", commentRoutes)
 app.use("/api/likes", likeRoutes)
+app.use("/api/notifications", notificationRoutes)
 
 app.listen(8500, () => {
     console.log("Server is running on port 8500");

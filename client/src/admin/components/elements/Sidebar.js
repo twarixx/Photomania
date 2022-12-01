@@ -6,7 +6,7 @@ export const Sidebar = () => {
     const {currentUser} = useContext(AuthContext);
 
     return (
-        <div className="w-[18%] h-screen bg-zinc-800 text-zinc-400 flex flex-col">
+        <div className="w-[250px] h-screen bg-zinc-800 text-zinc-400 flex flex-col">
             <Link to={`/${currentUser.username}`}>
                 <div className="flex flex-col items-center my-12">
                     <img
@@ -18,9 +18,9 @@ export const Sidebar = () => {
             </Link>
             <div className="items-center w-full">
                 <ul className="bg-zinc-700">
-                    <li className="hover:bg-zinc-600 p-4">Home</li>
-                    <li className="hover:bg-zinc-600 p-4">Posts</li>
-                    <li className="hover:bg-zinc-600 p-4">Users</li>
+                    <Link to="/panel"><li className="hover:bg-zinc-600 p-4">Home</li></Link>
+                    <Link to="/panel/posts"><li className="hover:bg-zinc-600 p-4">Posts</li></Link>
+                    <Link to="/panel/users"><li className="hover:bg-zinc-600 p-4">Users</li></Link>
                 </ul>
             </div>
             <div className="mt-auto text-lg text-zinc-700 font-semibold justify-center flex my-6 items-end w-full">

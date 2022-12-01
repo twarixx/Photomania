@@ -12,6 +12,8 @@ import {QueryClient} from '@tanstack/react-query'
 import {MainLayout} from "./components/MainLayout";
 import {DashboardPage} from "./admin/pages/DashboardPage";
 import {AdminLayout} from "./admin/components/AdminLayout";
+import {PostsPage} from "./admin/pages/PostsPage";
+import {UsersPage} from "./admin/pages/UsersPage";
 
 function App() {
     const {currentUser} = useContext(AuthContext);
@@ -71,6 +73,18 @@ function App() {
                 {
                     path: "/panel",
                     element: <DashboardPage/>,
+                },
+                {
+                    path: "/panel/posts",
+                    element: <PostsPage/>,
+                },
+                {
+                    path: "/panel/users",
+                    element: <UsersPage/>,
+                },
+                {
+                    path: "/panel/*",
+                    element: <UnknownPage/>,
                 },
             ],
         },
