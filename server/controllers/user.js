@@ -1,5 +1,6 @@
 import {db} from "../database.js";
 import jwt from "jsonwebtoken";
+import fs from "fs";
 
 export const getUser = (req, res) => {
     const token = req.cookies.accessToken;
@@ -175,4 +176,22 @@ export const getRandomUsers = (req, res) => {
         });
     });
 
+}
+
+export const deleteUser = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(401).json("You are not logged in.");
+        const {username} = req.params;
+
+        const query = "DELETE FROM social_users WHERE username = ?";
+
+        db.query(query, [username], (err, data) => {
+            if (err) return res.status(500).json(err);
+
+            return res.status(200).json("User removed.");
+        });
+    });
 }

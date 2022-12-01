@@ -8,7 +8,8 @@ import {
     addFollower,
     deleteFollower,
     updateUser,
-    getAllUsers
+    getAllUsers,
+    deleteUser
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -21,5 +22,6 @@ router.get("/:username/followers", getFollowers);
 router.get("/:username/followed", getFollowed);
 router.post("/:userId/followers", addFollower);
 router.delete("/:userId/followers", deleteFollower);
+router.delete("/:username", deleteUser);
 
 export default router;

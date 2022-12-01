@@ -1,5 +1,7 @@
 import {useParams} from "react-router-dom";
 import {LoadData} from "../../axios";
+import {EditUserDialog} from "../components/dialogs/users/EditUserDialog";
+import {ConfirmDeleteDialog} from "../components/dialogs/users/ConfirmDeleteDialog";
 
 export const ManageUserPage = () => {
     const {username} = useParams();
@@ -36,8 +38,8 @@ export const ManageUserPage = () => {
                     <div className="bg-white w-1/4 h-full p-4 space-y-4 rounded">
                         <h1 className="text-lg font-semibold">Manage</h1>
                         <div className="text-white font-semibold flex max-w-xs space-y-2 flex-col">
-                            {/*<EditPostDialog post={post.data} refetch={post.refetch()}/>*/}
-                            {/*<ConfirmDeleteDialog location={post.data.source} uniqueId={post.data.unique_id} />*/}
+                            <EditUserDialog user={user.data} refetch={user.refetch()}/>
+                            <ConfirmDeleteDialog username={user.data.username} />
                         </div>
                     </div>
                 </div>

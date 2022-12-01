@@ -1,5 +1,5 @@
-import {Link} from "react-router-dom";
-import {useContext} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useContext, useEffect} from "react";
 import {AuthContext} from "../../context/AuthContext";
 import {LoadData} from "../../axios";
 
@@ -7,8 +7,8 @@ function Sidebar() {
     const {currentUser, logout} = useContext(AuthContext);
 
     const {isLoading, data, error} = LoadData(["sidebar:random_users"], "/users/random");
-    if (isLoading) return "Loading...";
 
+    if (isLoading) return "Loading...";
     if (error) return logout();
 
     return (
@@ -49,6 +49,10 @@ function Sidebar() {
             </div>
         </div>
     )
+}
+
+function checkLogin(currentUser, logout, navigate) {
+
 }
 
 export default Sidebar;

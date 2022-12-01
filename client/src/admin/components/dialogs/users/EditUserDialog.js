@@ -1,14 +1,14 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {useState} from "react";
-import {makeRequest, Upload} from "../../../axios";
+import {makeRequest, Upload} from "../../../../axios";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
-export const EditPostDialog = ({post, refetch}) => {
+export const EditUserDialog = ({user}) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [image, setImage] = useState(null);
 
-    const [caption, setCaption] = useState(post.caption);
+    const [caption, setCaption] = useState(user.username);
 
     const closeModal = () => setIsOpen(false);
     const openModal = () => setIsOpen(true);
@@ -20,9 +20,8 @@ export const EditPostDialog = ({post, refetch}) => {
         },
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(["posts"]);
-                queryClient.invalidateQueries(["user:posts"]);
-                queryClient.invalidateQueries(["admin:posts"]);
+                queryClient.invalidateQueries(["user"]);
+                queryClient.invalidateQueries(["admin:users"]);
                 window.location.reload();
             },
         }
@@ -31,11 +30,11 @@ export const EditPostDialog = ({post, refetch}) => {
     const handleClick = async event => {
         event.preventDefault();
 
-        const source = image ? await Upload(image) : post.source;
-        const newPost = post;
-        newPost.caption = caption;
+        const source = image ? await Upload(image) : user.profile_picture;
+        const newUser = user;
+        newUser.username = caption;
 
-        mutation.mutate({...newPost, source: source});
+        mutation.mutate({...newUser, source: source});
 
         setImage(null);
         closeModal();
@@ -82,7 +81,7 @@ export const EditPostDialog = ({post, refetch}) => {
                                                          src={
                                                              image
                                                                  ? URL.createObjectURL(image)
-                                                                 : post.source
+                                                                 : user.profile_picture
                                                          }
                                                          alt=""
                                                     />

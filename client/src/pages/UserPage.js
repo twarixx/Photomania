@@ -87,9 +87,9 @@ function UserPage() {
                         <p className="text-gray-400 text-sm">@{user.username}</p>
 
                         <div className="flex flex-col mt-auto">
-                            <p className="sm:inline block"><span className="sm:inline block font-bold">{followers.length} </span>  {followers.length ? 'follower' : 'followers'}</p>
+                            <p className="sm:inline block"><span className="sm:inline block font-bold">{followers.length} </span>  {followers.length === 1 ? 'follower' : 'followers'}</p>
                             <p className="sm:inline block"><span className="sm:inline block mt-1 font-bold">{followed.length} </span>  following</p>
-                            <p className="sm:inline block"><span className="sm:inline block mt-1 font-bold">{posts.length} </span>  {posts.length ? 'post' : 'posts'}</p>
+                            <p className="sm:inline block"><span className="sm:inline block mt-1 font-bold">{posts.length} </span>  {posts.length === 1 ? 'post' : 'posts'}</p>
                         </div>
                     </div>
                     <div className="sm:absolute flex flex-col-reverse sm:flex-row items-end sm:items-start sm:justify-end sm:right-5 items-start w-full text-gray-200 font-semibold">

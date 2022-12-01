@@ -104,7 +104,6 @@ export const deletePost = (req, res) => {
         const {uniqueId, location} = req.params;
 
         const query = "DELETE FROM social_posts WHERE unique_id = ?";
-        console.log(query);
 
         try {
             fs.unlinkSync("../client/public" + location.replaceAll(":", "/"));

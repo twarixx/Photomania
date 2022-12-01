@@ -1,8 +1,8 @@
 import {useParams} from "react-router-dom";
 import {LoadData} from "../../axios";
 import ReactTimeAgo from "react-time-ago";
-import {ConfirmDeleteDialog} from "../components/dialogs/ConfirmDeleteDialog";
-import {EditPostDialog} from "../components/dialogs/EditPostDialog";
+import {ConfirmDeleteDialog} from "../components/dialogs/posts/ConfirmDeleteDialog";
+import {EditPostDialog} from "../components/dialogs/posts/EditPostDialog";
 
 export const ManagePostPage = () => {
     const {id} = useParams();

@@ -1,9 +1,11 @@
 import {useContext} from "react";
 import {AuthContext} from "../../../context/AuthContext";
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
+import {LoadData} from "../../../axios";
 
 export const Sidebar = () => {
-    const {currentUser} = useContext(AuthContext);
+    const {currentUser, logout} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     return (
         <div className="w-[20%] h-full bg-zinc-800 text-zinc-400 flex flex-col">

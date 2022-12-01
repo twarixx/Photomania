@@ -1,6 +1,6 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {useState} from "react";
-import {makeRequest, Upload} from "../../../axios";
+import {makeRequest, Upload} from "../../../../axios";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useNavigate} from "react-router-dom";
 
