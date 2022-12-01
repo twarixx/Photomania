@@ -5,8 +5,11 @@ import {UserDropdown} from "../dropdowns/UserDropdown";
 import {SearchBar} from "../requirements/SearchBar";
 import {SearchDialog} from "../dialogs/SearchDialog";
 import {NotificationsDropdown} from "../dropdowns/NotificationsDropdown";
+import {AuthContext} from "../../context/AuthContext";
+import {useContext} from "react";
 
 function Header() {
+    const {currentUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     return (

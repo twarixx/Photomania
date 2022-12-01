@@ -63,9 +63,9 @@ function App() {
         {
             path: "/panel",
             element: (
-                <LoggedIn>
+                <IsModerator>
                     <AdminLayout queryClient={queryClient}/>
-                </LoggedIn>
+                </IsModerator>
             ),
             children: [
                 {

@@ -4,10 +4,12 @@ import {AuthContext} from "../../context/AuthContext";
 import {LoadData} from "../../axios";
 
 function Sidebar() {
-    const {currentUser} = useContext(AuthContext);
+    const {currentUser, logout} = useContext(AuthContext);
 
-    const {isLoading, data} = LoadData(["sidebar:random_users"], "/users/random");
+    const {isLoading, data, error} = LoadData(["sidebar:random_users"], "/users/random");
     if (isLoading) return "Loading...";
+
+    if (error) return logout();
 
     return (
         <div className="hidden sm:flex flex-col w-2/6 space-y-3 z-20">
