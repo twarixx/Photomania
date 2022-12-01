@@ -112,8 +112,6 @@ export const deletePost = (req, res) => {
             db.query(query, [uniqueId], (err, data) => {
                 if (err) return res.status(500).json(err);
 
-                console.log(data)
-
                 return res.status(200).json("Post removed.");
             });
         } catch (err) {
@@ -121,3 +119,26 @@ export const deletePost = (req, res) => {
         }
     });
 }
+
+export const updatePost = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(403).json("You are not logged in.");
+
+        const query = "UPDATE social_posts SET `caption`=?, `source`=? WHERE id=?";
+        const values = [
+            req.body.caption,
+            req.body.source.startsWith('/images') ? req.body.source : '/images/uploads/' + req.body.source,
+            req.body.id
+        ]
+
+        db.query(query, values, (err, data) => {
+            if (err) return res.status(500).json(err);
+
+            if (data.affectedRows > 0) return res.json("Updated!");
+            return res.status(403).json("Couldn't update!");
+        });
+    });
+};

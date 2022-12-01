@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import {AuthContext} from "../../../context/AuthContext";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 export const Sidebar = () => {
     const {currentUser} = useContext(AuthContext);
@@ -18,9 +18,9 @@ export const Sidebar = () => {
             </Link>
             <div className="items-center w-full">
                 <ul className="bg-zinc-700">
-                    <Link to="/panel"><li className="hover:bg-zinc-600 p-4">Home</li></Link>
-                    <Link to="/panel/posts"><li className="hover:bg-zinc-600 p-4">Posts</li></Link>
-                    <Link to="/panel/users"><li className="hover:bg-zinc-600 p-4">Users</li></Link>
+                    <NavLink activeClassName="bg-zinc-600" to="/panel"><li className="hover:bg-zinc-600 p-4">Home</li></NavLink>
+                    <NavLink activeClassName="bg-zinc-600" to="/panel/posts"><li className="hover:bg-zinc-600 p-4">Posts</li></NavLink>
+                    <NavLink activeClassName="bg-zinc-600" to="/panel/users"><li className="hover:bg-zinc-600 p-4">Users</li></NavLink>
                 </ul>
             </div>
             <div className="mt-auto text-lg text-zinc-700 font-semibold justify-center flex my-6 items-end w-full">

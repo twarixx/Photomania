@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import {LoadData} from "../../axios";
 import ReactTimeAgo from "react-time-ago";
 import {ConfirmDeleteDialog} from "../components/dialogs/ConfirmDeleteDialog";
+import {EditPostDialog} from "../components/dialogs/EditPostDialog";
 
 export const ManagePostPage = () => {
     const {id} = useParams();
@@ -30,7 +31,7 @@ export const ManagePostPage = () => {
                     <div className="bg-white w-1/6 h-full p-4 space-y-4 rounded">
                         <h1 className="text-lg font-semibold">Manage</h1>
                         <div className="text-white font-semibold flex max-w-xs space-y-2 flex-col">
-                            <button className="bg-orange-500 py-2 px-4 rounded">Edit</button>
+                            <EditPostDialog post={post.data} refetch={post.refetch()}/>
                             <ConfirmDeleteDialog location={post.data.source} uniqueId={post.data.unique_id} />
                         </div>
                     </div>

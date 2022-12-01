@@ -29,7 +29,7 @@ function App() {
     }
 
     const IsModerator = ({children}) => {
-        if (currentUser?.role === 0) {
+        if (!currentUser || currentUser?.role === 0) {
             return <Navigate to="/"/>;
         }
 
