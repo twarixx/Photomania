@@ -7,11 +7,13 @@ import {
     getFollowed,
     addFollower,
     deleteFollower,
-    updateUser
+    updateUser,
+    getAllUsers
 } from "../controllers/user.js";
 
 const router = express.Router();
 router.get("/random", getRandomUsers);
+router.get("/all", getAllUsers)
 router.get("/:username", getUser);
 router.put("/update", updateUser);
 router.get("/:username/posts", getPosts);

@@ -18,9 +18,9 @@ export const Sidebar = () => {
             </Link>
             <div className="items-center w-full">
                 <ul className="bg-zinc-700">
-                    <NavLink activeClassName="bg-zinc-600" to="/panel"><li className="hover:bg-zinc-600 p-4">Home</li></NavLink>
-                    <NavLink activeClassName="bg-zinc-600" to="/panel/posts"><li className="hover:bg-zinc-600 p-4">Posts</li></NavLink>
-                    <NavLink activeClassName="bg-zinc-600" to="/panel/users"><li className="hover:bg-zinc-600 p-4">Users</li></NavLink>
+                    <NavLink to="/panel"><li className="hover:bg-zinc-600 p-4">Home</li></NavLink>
+                    <NavLink to="/panel/posts"><li className="hover:bg-zinc-600 p-4">Posts</li></NavLink>
+                    <NavLink to="/panel/users"><li className="hover:bg-zinc-600 p-4">Users</li></NavLink>
                 </ul>
             </div>
             <div className="mt-auto text-lg text-zinc-700 font-semibold justify-center flex my-6 items-end w-full">
