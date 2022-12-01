@@ -21,6 +21,7 @@ export const UploadDialog = () => {
             onSuccess: () => {
                 queryClient.invalidateQueries(["posts"]);
                 queryClient.invalidateQueries(["user:posts"]);
+                queryClient.invalidateQueries(["admin:posts"]);
             },
         }
     );

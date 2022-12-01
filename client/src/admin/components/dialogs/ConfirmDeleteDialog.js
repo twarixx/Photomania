@@ -1,31 +1,36 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {useState} from "react";
-import {Upload} from "../../../axios";
-import {useQueryClient} from "@tanstack/react-query";
+import {makeRequest, Upload} from "../../../axios";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useNavigate} from "react-router-dom";
 
-export const ConfirmDeleteDialog = () => {
+export const ConfirmDeleteDialog = ({uniqueId, location}) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [file, setFile] = useState(null);
-    const [caption, setCaption] = useState("");
+    const navigate = useNavigate();
 
     const closeModal = () => setIsOpen(false);
     const openModal = () => setIsOpen(true);
 
     const queryClient = useQueryClient();
 
+    const mutation = useMutation(
+        () => {
+            return makeRequest.delete(`/posts/${uniqueId}/${location.replaceAll("/", ":")}`);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(["posts"]);
+                queryClient.invalidateQueries(["user:posts"]);
+                queryClient.invalidateQueries(["admin:posts"]);
+            },
+        }
+    );
+
     const handleClick = async event => {
         event.preventDefault();
-        if (!caption || !file) return;
 
-        const image = await Upload(file);
-        const post = {
-            caption: caption,
-            source: image,
-
-        }
-
-        setCaption("");
-        setFile(null);
+        mutation.mutate();
+        navigate("/panel/posts");
         closeModal();
     }
 
@@ -57,13 +62,18 @@ export const ConfirmDeleteDialog = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel
-                                    className="w-screen max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    className="w-screen max-w-sm transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 
                                     <h1 className="text-center text-lg font-semibold">Confirm</h1>
 
                                     <form className="mt-4">
                                         <div className="space-y-3 flex flex-col">
-                                            <p>Are you sure that you want to delete this post?</p>
+                                            <p className="my-1">Are you sure that you want to delete this post? It will be lost for forever, a really, really long time!</p>
+
+                                           <div className="flex ml-auto space-x-2 text-white">
+                                               <button className="bg-gray-500 px-4 py-2" onClick={(e) => {e.preventDefault();closeModal();}}>Cancel</button>
+                                               <button className="bg-red-600 px-4 py-2" onClick={handleClick}>Delete</button>
+                                           </div>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

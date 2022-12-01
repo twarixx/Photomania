@@ -27,11 +27,11 @@ export const ManagePostPage = () => {
                             <p>Posted by: {post.data.username}</p>
                         </div>
                     </div>
-                    <div className="bg-white w-1/6 h-fit p-4 space-y-4 rounded">
+                    <div className="bg-white w-1/6 h-full p-4 space-y-4 rounded">
                         <h1 className="text-lg font-semibold">Manage</h1>
                         <div className="text-white font-semibold flex max-w-xs space-y-2 flex-col">
                             <button className="bg-orange-500 py-2 px-4 rounded">Edit</button>
-                            <ConfirmDeleteDialog />
+                            <ConfirmDeleteDialog location={post.data.source} uniqueId={post.data.unique_id} />
                         </div>
                     </div>
                 </div>

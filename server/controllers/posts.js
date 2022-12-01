@@ -1,6 +1,7 @@
 import {db} from "../database.js";
 import jwt from "jsonwebtoken";
 import uniqueGen from "short-uuid"
+import fs from "fs";
 
 export const getPosts = (req, res) => {
     const token = req.cookies.accessToken;
@@ -93,3 +94,30 @@ export const addPost = (req, res) => {
         });
     });
 };
+
+export const deletePost = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(401).json("You are not logged in.");
+        const {uniqueId, location} = req.params;
+
+        const query = "DELETE FROM social_posts WHERE unique_id = ?";
+        console.log(query);
+
+        try {
+            fs.unlinkSync("../client/public" + location.replaceAll(":", "/"));
+
+            db.query(query, [uniqueId], (err, data) => {
+                if (err) return res.status(500).json(err);
+
+                console.log(data)
+
+                return res.status(200).json("Post removed.");
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    });
+}
