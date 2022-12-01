@@ -6,7 +6,7 @@ export const Sidebar = () => {
     const {currentUser} = useContext(AuthContext);
 
     return (
-        <div className="w-[250px] h-screen bg-zinc-800 text-zinc-400 flex flex-col">
+        <div className="w-[20%] h-full bg-zinc-800 text-zinc-400 flex flex-col">
             <Link to={`/${currentUser.username}`}>
                 <div className="flex flex-col items-center my-12">
                     <img

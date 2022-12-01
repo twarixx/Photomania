@@ -14,6 +14,7 @@ import {DashboardPage} from "./admin/pages/DashboardPage";
 import {AdminLayout} from "./admin/components/AdminLayout";
 import {PostsPage} from "./admin/pages/PostsPage";
 import {UsersPage} from "./admin/pages/UsersPage";
+import {ManagePostPage} from "./admin/pages/ManagePostPage";
 
 function App() {
     const {currentUser} = useContext(AuthContext);
@@ -77,6 +78,10 @@ function App() {
                 {
                     path: "/panel/posts",
                     element: <PostsPage/>,
+                },
+                {
+                    path: "/panel/post/:id",
+                    element: <ManagePostPage/>,
                 },
                 {
                     path: "/panel/users",
