@@ -39,7 +39,7 @@ export const ManageUserPage = () => {
                         <h1 className="text-lg font-semibold">Manage</h1>
                         <div className="text-white font-semibold flex max-w-xs space-y-2 flex-col">
                             <EditUserDialog user={user.data} refetch={user.refetch()}/>
-                            <ConfirmDeleteDialog username={user.data.username} />
+                            <ConfirmDeleteDialog userId={user.data.id} username={user.data.username} />
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import {
     addFollower,
     deleteFollower,
     updateUser,
+    forceUpdateUser,
     getAllUsers,
     deleteUser
 } from "../controllers/user.js";
@@ -17,6 +18,7 @@ router.get("/random", getRandomUsers);
 router.get("/all", getAllUsers)
 router.get("/:username", getUser);
 router.put("/update", updateUser);
+router.put("/admin/update", forceUpdateUser)
 router.get("/:username/posts", getPosts);
 router.get("/:username/followers", getFollowers);
 router.get("/:username/followed", getFollowed);

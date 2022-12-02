@@ -28,13 +28,14 @@ export const register = (req, res) => {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        const query = "INSERT INTO social_users (`username`, `display_name`, `email`, `password`) VALUES (?)";
+        const query = "INSERT INTO social_users (`username`, `display_name`, `email`, `password`, `last_updated`) VALUES (?)";
 
         const values = [
             username,
             username,
             email,
-            hashedPassword
+            hashedPassword,
+            Date.now()
         ];
 
         db.query(query, [values], (err, data) => {

@@ -1,5 +1,5 @@
 import './App.css';
-import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider, useNavigate} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
@@ -7,8 +7,10 @@ import UnknownPage from "./pages/UnknownPage";
 import PostPage from "./pages/PostPage";
 import RegisterPage from "./pages/RegisterPage";
 import {AuthContext} from "./context/AuthContext";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {QueryClient} from '@tanstack/react-query'
+import {io} from "socket.io-client";
+
 import {MainLayout} from "./components/MainLayout";
 import {DashboardPage} from "./admin/pages/DashboardPage";
 import {AdminLayout} from "./admin/components/AdminLayout";
@@ -16,11 +18,12 @@ import {PostsPage} from "./admin/pages/PostsPage";
 import {UsersPage} from "./admin/pages/UsersPage";
 import {ManagePostPage} from "./admin/pages/ManagePostPage";
 import {ManageUserPage} from "./admin/pages/ManageUserPage";
+import {LoadData} from "./axios";
 
 function App() {
-    const {currentUser} = useContext(AuthContext);
+    const {currentUser, setCurrentUser, logout} = useContext(AuthContext);
     const queryClient = new QueryClient()
-
+    
     const LoggedIn = ({children}) => {
         if (!currentUser) {
             return <Navigate to="/login"/>;
@@ -42,7 +45,7 @@ function App() {
             path: "/",
             element: (
                 <LoggedIn>
-                    <MainLayout queryClient={queryClient}/>
+                        <MainLayout queryClient={queryClient}/>
                 </LoggedIn>
             ),
             children: [

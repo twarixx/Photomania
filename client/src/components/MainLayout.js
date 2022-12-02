@@ -2,8 +2,10 @@ import {QueryClientProvider} from "@tanstack/react-query";
 import Header from "./elements/Header";
 import Sidebar from "./elements/Sidebar";
 import {Outlet} from "react-router-dom";
+import {makeRequest} from "../axios";
 
 export const MainLayout = ({queryClient}) => {
+
     return (
         <QueryClientProvider client={queryClient}>
             <div className="relative">

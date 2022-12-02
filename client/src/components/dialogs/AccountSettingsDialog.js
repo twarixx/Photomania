@@ -27,6 +27,7 @@ export const AccountSettingsDialog = () => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries(["user"]);
+                queryClient.invalidateQueries(["admin:users"]);
                 refetch();
             },
         }

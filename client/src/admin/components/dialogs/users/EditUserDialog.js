@@ -2,41 +2,45 @@ import {Dialog, Transition} from "@headlessui/react";
 import {useState} from "react";
 import {makeRequest, Upload} from "../../../../axios";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useNavigate} from "react-router-dom";
 
 export const EditUserDialog = ({user}) => {
-
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
-    const [image, setImage] = useState(null);
-
-    const [caption, setCaption] = useState(user.username);
+    const [profile, setProfile] = useState(null);
+    const [texts, setTexts] = useState({
+        email: user.email,
+        display_name: user.display_name,
+        username: user.username,
+    });
 
     const closeModal = () => setIsOpen(false);
     const openModal = () => setIsOpen(true);
 
     const queryClient = useQueryClient();
     const mutation = useMutation(
-        (newPost) => {
-            return makeRequest.put(`/posts/update`, newPost);
+        (newUser) => {
+            return makeRequest.put(`/users/admin/update`, newUser);
         },
         {
             onSuccess: () => {
                 queryClient.invalidateQueries(["user"]);
                 queryClient.invalidateQueries(["admin:users"]);
-                window.location.reload();
             },
         }
     );
 
+    const handleChange = (e) => {
+        setTexts((prev) => ({...prev, [e.target.name]: [e.target.value]}));
+    };
+
     const handleClick = async event => {
         event.preventDefault();
 
-        const source = image ? await Upload(image) : user.profile_picture;
-        const newUser = user;
-        newUser.username = caption;
+        const profilePic = profile ? await Upload(profile) : user.profile_picture;
+        mutation.mutate({...texts, profile_picture: profilePic, id: user.id});
 
-        mutation.mutate({...newUser, source: source});
-
-        setImage(null);
+        navigate("/panel/users");
         closeModal();
     }
 
@@ -79,9 +83,9 @@ export const EditUserDialog = ({user}) => {
                                                     <span>Image</span>
                                                     <img className="w-52 aspect-square object-cover rounded-md"
                                                          src={
-                                                             image
-                                                                 ? URL.createObjectURL(image)
-                                                                 : user.profile_picture
+                                                             profile
+                                                                 ? URL.createObjectURL(profile)
+                                                                 : user.profile_picture ?? '/images/profile_pictures/_default_.jpg'
                                                          }
                                                          alt=""
                                                     />
@@ -91,24 +95,54 @@ export const EditUserDialog = ({user}) => {
                                                     id="image"
                                                     accept="image/png, image/jpeg"
                                                     style={{display: "none"}}
-                                                    onChange={(e) => setImage(e.target.files[0])}
+                                                    onChange={(e) => setProfile(e.target.files[0])}
                                                 />
                                             </div>
 
                                             <div className="mt-0.5 flex flex-col justify-between">
                                                 <div className="flex flex-col">
-                                                    <label htmlFor="caption">
-                                                        <span>Caption</span>
+                                                    <label htmlFor="email">
+                                                        <span>Email</span>
                                                     </label>
 
                                                     <input
                                                         className="p-2 bg-[#efefef] rounded-md"
-                                                        placeholder="Caption"
+                                                        placeholder="Email"
+                                                        type="email"
+                                                        id="email"
+                                                        name="email"
+                                                        value={texts.email}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <label htmlFor="username">
+                                                        <span>Username</span>
+                                                    </label>
+
+                                                    <input
+                                                        className="p-2 bg-[#efefef] rounded-md"
+                                                        placeholder="Username"
                                                         type="text"
-                                                        id="caption"
-                                                        name="caption"
-                                                        value={caption}
-                                                        onChange={e => setCaption(e.target.value)}
+                                                        id="username"
+                                                        name="username"
+                                                        value={texts.username}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <label htmlFor="display">
+                                                        <span>Display Name</span>
+                                                    </label>
+
+                                                    <input
+                                                        className="p-2 bg-[#efefef] rounded-md"
+                                                        placeholder="Display Name"
+                                                        type="text"
+                                                        id="display"
+                                                        name="display_name"
+                                                        value={texts.display_name}
+                                                        onChange={handleChange}
                                                     />
                                                 </div>
                                             </div>

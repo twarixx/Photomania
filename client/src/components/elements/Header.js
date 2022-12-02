@@ -6,10 +6,23 @@ import {SearchBar} from "../requirements/SearchBar";
 import {SearchDialog} from "../dialogs/SearchDialog";
 import {AuthContext} from "../../context/AuthContext";
 import {useContext} from "react";
+import {LoadData, makeRequest} from "../../axios";
 
 function Header() {
-    const {currentUser} = useContext(AuthContext);
+    const {currentUser, setCurrentUser, logout} = useContext(AuthContext);
     const navigate = useNavigate();
+
+    const userData = LoadData(['validator', currentUser.username], "/users/" + currentUser.username);
+    if (!userData.isLoading) {
+        if (!userData.data) {
+            logout();
+            return navigate("/login");
+        }
+
+        if (userData.data.last_updated > currentUser.last_updated) {
+            setCurrentUser(userData.data);
+        }
+    }
 
     return (
         <>
@@ -20,7 +33,7 @@ function Header() {
                     </Link>
                     <Link to="/"><h1 className="block sm:hidden font-semibold text-lg tracking-widest">PM</h1></Link>
 
-                    <SearchDialog navigate={navigate} />
+                    <SearchDialog navigate={navigate}/>
                 </div>
 
                 <div className="hidden sm:block flex-grow max-w-xl">
@@ -32,7 +45,7 @@ function Header() {
                     <Link to="/"><img className="w-8 sm:w-9 mr-3 sm:mr-5 h-full" src="/icons/home.svg"
                                       alt="Home" title="Home"/></Link>
 
-                    <UploadDialog />
+                    <UploadDialog/>
 
                     <UserDropdown navigate={navigate}/>
                 </div>

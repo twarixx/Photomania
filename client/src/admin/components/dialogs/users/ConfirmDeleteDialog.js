@@ -4,7 +4,7 @@ import {makeRequest, Upload} from "../../../../axios";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useNavigate} from "react-router-dom";
 
-export const ConfirmDeleteDialog = ({username}) => {
+export const ConfirmDeleteDialog = ({userId, username}) => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -29,6 +29,7 @@ export const ConfirmDeleteDialog = ({username}) => {
         event.preventDefault();
 
         mutation.mutate();
+
         navigate("/panel/users");
         closeModal();
     }

@@ -1,6 +1,5 @@
 import {db} from "../database.js";
 import jwt from "jsonwebtoken";
-import fs from "fs";
 
 export const getUser = (req, res) => {
     const token = req.cookies.accessToken;
@@ -55,6 +54,32 @@ export const updateUser = (req, res) => {
             req.body.display_name,
             req.body.profile_picture.startsWith('/images') ? req.body.profile_picture : '/images/uploads/' + req.body.profile_picture,
             userInfo.id
+        ]
+
+        db.query(query, values, (err, data) => {
+            if (err) return res.status(500).json(err);
+
+            if (data.affectedRows > 0) return res.json("Updated!");
+            return res.status(403).json("Couldn't update!");
+        });
+    });
+};
+
+export const forceUpdateUser = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("You are not logged in.");
+
+    jwt.verify(token, 'shhhhh', (err, userInfo) => {
+        if (err) return res.status(403).json("You are not logged in.");
+
+        const query = "UPDATE social_users SET `email`=?, `username`=?, `display_name`=?, `profile_picture`=?, `last_updated`=? WHERE id=?";
+        const values = [
+            req.body.email,
+            req.body.username,
+            req.body.display_name,
+            req.body.profile_picture.startsWith('/images') ? req.body.profile_picture : '/images/uploads/' + req.body.profile_picture,
+            Date.now(),
+            req.body.id
         ]
 
         db.query(query, values, (err, data) => {

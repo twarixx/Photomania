@@ -7,8 +7,14 @@ import userRoutes from "./routes/user.js";
 import commentRoutes from "./routes/comments.js";
 import likeRoutes from "./routes/likes.js";
 import multer from "multer";
+import { Server } from "socket.io";
 
 const app = express();
+const io = new Server({
+    cors: {
+        origin: "http://localhost:3000",
+    }
+});
 
 app.use((req, res, next) => {
    res.header("Access-Control-Allow-Credentials", true);
@@ -44,3 +50,30 @@ app.use("/api/likes", likeRoutes)
 app.listen(8500, () => {
     console.log("Server is running on port 8500");
 });
+
+let users = [];
+const addNewUser = (id, socketId) => {
+    !users.some((user) => user.id === id) &&
+    users.push({ id, socketId });
+};
+
+const removeUser = (socketId) => {
+    users = users.filter((user) => user.socketId !== socketId);
+};
+
+const getUser = (id) => {
+    return users.find((user) => user.id === id);
+};
+
+io.on("connection", (socket) => {
+    socket.on("addUser", (id) => addNewUser(id, socket.id));
+    socket.on("disconnect", () => removeUser(socket.id));
+
+    socket.on("updateUser", (id) => {
+        socket.to(getUser(id).socketId).emit("updateUser");
+    })
+});
+
+io.listen(8501, () => {
+    console.log("Socket is running on port 8501");
+})
