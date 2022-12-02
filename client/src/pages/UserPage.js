@@ -68,6 +68,33 @@ function UserPage() {
     if (isLoading || isLoadingPosts || isLoadingFollowed || isLoadingFollowers) return "Loading...";
     if (!user) return <UnknownPage/>;
 
+    if (user.suspended) {
+        return (
+            <>
+                <div
+                    className="rounded-none relative sm:rounded-md mx-[3px] px-4 py-5 w-full bg-white h-auto text-black z-20">
+                    <div className="flex">
+                        <img
+                            className="sm:w-36 aspect-square object-cover h-full rounded-md"
+                            src={user.profile_picture || '/images/profile_pictures/_default_.jpg'} alt="Profile Pic"/>
+                        <div className="flex flex-col ml-3">
+                            <div className="flex">
+                                <p className="text-lg">{user.display_name}</p>
+                                {user.verified === 1 && <img className="w-5 ml-0 mb-2" src="/icons/verified.svg"
+                                                             title={user.display_name + ' is verified'}
+                                                             alt="Verified"/>}
+                            </div>
+
+                            <p className="text-gray-400 text-sm">@{user.username}</p>
+
+                            <p className="mt-auto text-gray-600">This user is suspended.</p>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
+
     return (
         <>
             <div
