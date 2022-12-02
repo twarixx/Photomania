@@ -87,7 +87,7 @@ function UserPage() {
 
                             <p className="text-gray-400 text-sm">@{user.username}</p>
 
-                            <p className="mt-auto text-gray-600">This user is suspended.</p>
+                            <p className="mt-auto bg-red-500 px-4 border-red-600 border-2 p-2 rounded-lg text-gray-50 font-semibold">This user is suspended.</p>
                         </div>
                     </div>
                 </div>
