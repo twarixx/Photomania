@@ -58,6 +58,7 @@ export const login = (req, res) => {
         const user = data[0];
         const isPasswordCorrect = bcrypt.compareSync(req.body.password, user.password);
         if (!isPasswordCorrect) return res.status(400).json("Username or password is incorrect.");
+        if (user.suspended === 1) return res.status(400).json("Your account has been suspended.");
 
         const token = jwt.sign({ id: user.id }, 'shhhhh');
         res.cookie("accessToken", token, { httpOnly: true });

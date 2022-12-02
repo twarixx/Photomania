@@ -14,7 +14,7 @@ function Header() {
 
     const userData = LoadData(['validator', currentUser.username], "/users/" + currentUser.username);
     if (!userData.isLoading) {
-        if (!userData.data) {
+        if (!userData.data || userData.data.suspended === 1) {
             logout();
             return navigate("/login");
         }
