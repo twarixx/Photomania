@@ -72,12 +72,14 @@ export const forceUpdateUser = (req, res) => {
     jwt.verify(token, 'shhhhh', (err, userInfo) => {
         if (err) return res.status(403).json("You are not logged in.");
 
-        const query = "UPDATE social_users SET `email`=?, `username`=?, `display_name`=?, `profile_picture`=?, `last_updated`=? WHERE id=?";
+        const query = "UPDATE social_users SET `email`=?, `username`=?, `display_name`=?, `profile_picture`=?, `verified`=?, `suspended`=?, `last_updated`=? WHERE id=?";
         const values = [
             req.body.email,
             req.body.username,
             req.body.display_name,
             req.body.profile_picture.startsWith('/images') ? req.body.profile_picture : '/images/uploads/' + req.body.profile_picture,
+            req.body.verified,
+            req.body.suspended,
             Date.now(),
             req.body.id
         ]

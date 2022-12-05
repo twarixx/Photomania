@@ -12,6 +12,8 @@ export const EditUserDialog = ({user}) => {
         email: user.email,
         display_name: user.display_name,
         username: user.username,
+        verified: user.verified,
+        suspended: user.suspended,
     });
 
     const closeModal = () => setIsOpen(false);
@@ -31,16 +33,21 @@ export const EditUserDialog = ({user}) => {
     );
 
     const handleChange = (e) => {
-        setTexts((prev) => ({...prev, [e.target.name]: [e.target.value]}));
+        let value = e.target.value;
+        if (e.target.type === "checkbox") {
+            value = e.target.checked ? 1 : 0;
+        }
+
+        setTexts((prev) => ({...prev, [e.target.name]: value}));
     };
 
     const handleClick = async event => {
         event.preventDefault();
 
         const profilePic = profile ? await Upload(profile) : user.profile_picture;
-        mutation.mutate({...texts, profile_picture: profilePic, id: user.id});
+        mutation.mutate({...texts, profile_picture: profilePic ?? '/images/profile_pictures/_default_.jpg', id: user.id});
 
-        navigate("/panel/users");
+        window.location.reload();
         closeModal();
     }
 
@@ -144,6 +151,36 @@ export const EditUserDialog = ({user}) => {
                                                         value={texts.display_name}
                                                         onChange={handleChange}
                                                     />
+                                                </div>
+                                                <div className="flex flex-row space-x-2">
+                                                    <input
+                                                        className="p-2 bg-[#efefef] rounded-md"
+                                                        placeholder="Verified"
+                                                        type="checkbox"
+                                                        id="verified"
+                                                        name="verified"
+                                                        checked={texts.verified === 1}
+                                                        onChange={handleChange}
+                                                    />
+
+                                                    <label htmlFor="verified">
+                                                        <span>Verified</span>
+                                                    </label>
+                                                </div>
+                                                <div className="flex flex-row space-x-2">
+                                                    <input
+                                                        className="p-2 bg-[#efefef] rounded-md"
+                                                        placeholder="Suspended"
+                                                        type="checkbox"
+                                                        id="suspended"
+                                                        name="suspended"
+                                                        checked={texts.suspended === 1}
+                                                        onChange={handleChange}
+                                                    />
+
+                                                    <label htmlFor="suspended">
+                                                        <span>Suspended</span>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
