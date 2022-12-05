@@ -21,7 +21,7 @@ app.use(cors({
 app.use(cookieParser())
 
 const storage = multer.diskStorage({
-    function (req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, "../client/public/images/uploads");
     },
     filename: function (req, file, cb) {
