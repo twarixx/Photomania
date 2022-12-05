@@ -195,7 +195,7 @@ export const getRandomUsers = (req, res) => {
     jwt.verify(token, 'shhhhh', (err, userInfo) => {
         if (err) return res.status(401).json("You are not logged in.");
 
-        const query = "SELECT * FROM social_users WHERE (id != ?) ORDER BY RAND() LIMIT 0,10;";
+        const query = "SELECT * FROM social_users WHERE (id != ? AND suspended = 0) ORDER BY RAND() LIMIT 0,10;";
         db.query(query, [userInfo.id], (err, data) => {
             if (err) return res.status(500).json(err);
 
