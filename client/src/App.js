@@ -1,41 +1,119 @@
 import './App.css';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider, useNavigate} from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
-import PostPage from "./pages/PostPage";
-import UploadPage from "./pages/UploadPage";
 import UnknownPage from "./pages/UnknownPage";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import LogoutPage from "./pages/LogoutPage";
+import PostPage from "./pages/PostPage";
+import RegisterPage from "./pages/RegisterPage";
+import {AuthContext} from "./context/AuthContext";
+import {useContext, useEffect, useState} from "react";
+import {QueryClient} from '@tanstack/react-query'
+import {io} from "socket.io-client";
+
+import {MainLayout} from "./components/MainLayout";
+import {DashboardPage} from "./admin/pages/DashboardPage";
+import {AdminLayout} from "./admin/components/AdminLayout";
+import {PostsPage} from "./admin/pages/PostsPage";
+import {UsersPage} from "./admin/pages/UsersPage";
+import {ManagePostPage} from "./admin/pages/ManagePostPage";
+import {ManageUserPage} from "./admin/pages/ManageUserPage";
+import {LoadData} from "./axios";
 
 function App() {
+    const {currentUser, setCurrentUser, logout} = useContext(AuthContext);
+    const queryClient = new QueryClient()
+    
+    const LoggedIn = ({children}) => {
+        if (!currentUser) {
+            return <Navigate to="/login"/>;
+        }
+
+        return children;
+    }
+
+    const IsModerator = ({children}) => {
+        if (!currentUser || currentUser?.role === 0) {
+            return <Navigate to="/"/>;
+        }
+
+        return children;
+    }
+
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: (
+                <LoggedIn>
+                        <MainLayout queryClient={queryClient}/>
+                </LoggedIn>
+            ),
+            children: [
+                {
+                    path: "/",
+                    element: <HomePage/>,
+                },
+                {
+                    path: "/:username",
+                    element: <UserPage/>,
+                },
+                {
+                    path: "/post/:postId",
+                    element: <PostPage/>,
+                },
+                {
+                    path: "*",
+                    element: <UnknownPage/>,
+                }
+            ],
+        },
+        {
+            path: "/panel",
+            element: (
+                <IsModerator>
+                    <AdminLayout queryClient={queryClient}/>
+                </IsModerator>
+            ),
+            children: [
+                {
+                    path: "/panel",
+                    element: <DashboardPage/>,
+                },
+                {
+                    path: "/panel/posts",
+                    element: <PostsPage/>,
+                },
+                {
+                    path: "/panel/post/:id",
+                    element: <ManagePostPage/>,
+                },
+                {
+                    path: "/panel/users",
+                    element: <UsersPage/>,
+                },
+                {
+                    path: "/panel/user/:username",
+                    element: <ManageUserPage/>,
+                },
+                {
+                    path: "/panel/*",
+                    element: <UnknownPage/>,
+                },
+            ],
+        },
+        {
+            path: "/login",
+            element: <LoginPage/>,
+        },
+        {
+            path: "/register",
+            element: <RegisterPage/>,
+        }
+    ]);
+
     return (
         <div>
-            <BrowserRouter>
-                <div className="relative">
-                    <Header/>
-                </div>
-
-                <div className="sm:mx-[7%] flex mt-0 sm:mt-[-30px] z-0 sm:space-x-6">
-                    <Sidebar/>
-
-                    <div className="flex flex-col space-y-3 w-full">
-                        <Routes>
-                            <Route path="/" element={<HomePage/>}/>
-                            <Route path="/:username" element={<UserPage/>}/>
-                            <Route path="/post/:postId" element={<PostPage/>}/>
-                            <Route path="/upload" element={<UploadPage/>}/>
-                            <Route path="/logout" element={<LogoutPage/>}/>
-                            <Route path="*" element={<UnknownPage/>}/>
-                        </Routes>
-                    </div>
-                </div>
-
-                <div className="w-full h-5">
-
-                </div>
-            </BrowserRouter>
+            <RouterProvider router={router}/>
         </div>
     );
 }

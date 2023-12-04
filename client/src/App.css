@@ -23,6 +23,35 @@ body {
     }
 
     .profilecount {
-        @apply text-black font-semibold
+        @apply text-black font-semibold inline-flex
+    }
+
+    .login-input {
+        width: 37vh;
+        background: transparent;
+        border: none;
+        border-bottom: silver 2.5px solid;
+        padding: 10px;
+        font-size: small;
+        color: silver;
+        outline: none;
+    }
+
+    .login-input:focus, .login-input:hover {
+        outline: none;
+        border-bottom: rgb(168 85 247) 2.5px solid;
+        transition: all 0.3s ease;
+    }
+
+    .submit-login > input[type="submit"] {
+        background: rgb(168 85 247);
+        width: 41vh;
+        padding: 1.3vh;
+        border-radius: 50px;
+        margin-top: 2.5rem;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+        font-weight: 600;
     }
 }
